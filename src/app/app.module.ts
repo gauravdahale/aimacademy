@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ENVIRONMENT_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -26,13 +26,15 @@ import {ClassListComponent} from './class-list/class-list.component';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {AddClassComponent} from './add-class/add-class.component';
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
+import {initializeDialogService} from "../main";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 
 @NgModule({
     declarations: [
@@ -40,7 +42,7 @@ import {MatTableModule} from "@angular/material/table";
         NavComponent,
         DashboardComponent,
         ClassListComponent,
-        AddClassComponent
+        AddClassComponent,
     ],
     imports: [
         BrowserModule,
@@ -76,7 +78,12 @@ import {MatTableModule} from "@angular/material/table";
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
-
+        {
+            provide: ENVIRONMENT_INITIALIZER,
+            useFactory: initializeDialogService,
+            deps: [MatDialog],
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

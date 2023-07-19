@@ -5,6 +5,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject, takeUntil} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {needConfirmation} from "../confirm-dialog/confirm-dialog.decorator";
 
 @Component({
     selector: 'app-class-list',
@@ -38,7 +39,6 @@ export class ClassListComponent implements OnInit, OnDestroy {
 
             })
     }
-
     ngOnDestroy(): void {
         this._destroyed$.next('')
         this._destroyed$.complete()
@@ -52,6 +52,8 @@ export class ClassListComponent implements OnInit, OnDestroy {
             })
 
     }
+    @needConfirmation()
+
     delete(data:any){
 this.mFirestore.collection('class').doc(data.id).delete().then(()=>{
     this.matSnackBar.open(`${data.className} deleted successfully`)._dismissAfter(3000)
