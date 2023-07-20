@@ -35,6 +35,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import {initializeDialogService} from "../main";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import { StudentsListComponent } from './students-list/students-list.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +45,8 @@ import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component"
         DashboardComponent,
         ClassListComponent,
         AddClassComponent,
+        StudentsListComponent,
+        AddStudentComponent,
     ],
     imports: [
         BrowserModule,

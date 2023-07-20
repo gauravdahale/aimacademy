@@ -4,7 +4,7 @@ import {enableProdMode, ENVIRONMENT_INITIALIZER, importProvidersFrom, inject} fr
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import {DialogService} from "./app/dialog.service";
+import {DialogService} from "./app/services/dialog.service";
 
 
 platformBrowserDynamic().bootstrapModule(AppModule)

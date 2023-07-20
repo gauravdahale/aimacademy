@@ -4,6 +4,8 @@ import {NavComponent} from "./nav/nav.component";
 import {AuthGuard} from "@angular/fire/auth-guard";
 import {ClassListComponent} from "./class-list/class-list.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {StudentsListComponent} from "./students-list/students-list.component";
+import {AddStudentComponent} from "./add-student/add-student.component";
 
 const routes: Routes = [
 
@@ -28,7 +30,18 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
 
       },
+      {
+        path: 'student-list',
+        component: StudentsListComponent,
+        // canActivate: [AuthGuard],
 
+      },
+      {
+        path: 'add-student',
+        component: AddStudentComponent,
+        // canActivate: [AuthGuard],
+
+      },
     ],
   },
   // { path: 'login', component: LoginComponent },
