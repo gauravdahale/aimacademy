@@ -35,8 +35,14 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import {initializeDialogService} from "../main";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
-import { StudentsListComponent } from './students-list/students-list.component';
-import { AddStudentComponent } from './add-student/add-student.component';
+import {StudentsListComponent} from './students-list/students-list.component';
+import {AddStudentComponent} from './add-student/add-student.component';
+import {AddAttendanceComponent} from './add-attendance/add-attendance.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatRadioModule} from "@angular/material/radio";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {CustomDateAdapter, MY_DATE_FORMATS} from "./CustomDateAdapter";
+import {PrettyJsonModule} from "angular2-prettyjson";
 
 @NgModule({
     declarations: [
@@ -47,6 +53,7 @@ import { AddStudentComponent } from './add-student/add-student.component';
         AddClassComponent,
         StudentsListComponent,
         AddStudentComponent,
+        AddAttendanceComponent,
     ],
     imports: [
         BrowserModule,
@@ -69,7 +76,7 @@ import { AddStudentComponent } from './add-student/add-student.component';
         MatMenuModule,
         RouterOutlet,
         RouterLink,
-        MatDialogModule,
+
         ReactiveFormsModule,
         MatFormFieldModule,
         MatSelectModule,
@@ -78,7 +85,10 @@ import { AddStudentComponent } from './add-student/add-student.component';
         MatSnackBarModule,
         MatTableModule,
         MatIconModule,
-
+        MatDatepickerModule,
+        MatRadioModule,
+        MatDialogModule,
+        PrettyJsonModule,
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
@@ -87,7 +97,10 @@ import { AddStudentComponent } from './add-student/add-student.component';
             useFactory: initializeDialogService,
             deps: [MatDialog],
             multi: true
-        }
+        },
+        {provide: MAT_DATE_LOCALE, useValue: 'en-US'}, // Set the desired locale
+        {provide: DateAdapter, useClass: CustomDateAdapter},
+        {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
     ],
     bootstrap: [AppComponent]
 })

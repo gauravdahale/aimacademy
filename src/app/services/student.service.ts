@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Database, get, increment, objectVal, ref, set, update} from "@angular/fire/database";
-import {collection, collectionData, Firestore} from "@angular/fire/firestore";
+import {collection, collectionData, deleteDoc, doc, Firestore} from "@angular/fire/firestore";
+import {Observable} from "rxjs";
+import {Student} from "../interfaces/Student";
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +33,11 @@ export class StudentService {
 
     fetchStudents() {
         let studentRef=  collection(this.mFirestore,'students')
-        return collectionData(studentRef,{idField:'id'})
+        return collectionData(studentRef,{idField:'id'}) as Observable<Student[]>
+    }
+
+    deleteStudent(id:string) {
+        let studentRef = doc(this.mFirestore,'students/'+id)
+       return  deleteDoc(studentRef)
     }
 }

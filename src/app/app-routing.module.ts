@@ -6,6 +6,7 @@ import {ClassListComponent} from "./class-list/class-list.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {StudentsListComponent} from "./students-list/students-list.component";
 import {AddStudentComponent} from "./add-student/add-student.component";
+import {AddAttendanceComponent} from "./add-attendance/add-attendance.component";
 
 const routes: Routes = [
 
@@ -39,6 +40,12 @@ const routes: Routes = [
       {
         path: 'add-student',
         component: AddStudentComponent,
+        // canActivate: [AuthGuard],
+
+      },
+      {
+        path: 'add-attendance',
+        component: AddAttendanceComponent,
         // canActivate: [AuthGuard],
 
       },

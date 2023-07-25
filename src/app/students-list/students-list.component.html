@@ -21,7 +21,7 @@
 
         <ng-container matColumnDef="batchName">
             <th mat-header-cell *matHeaderCellDef> Batch Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.studentName}}</td>
+            <td mat-cell *matCellDef="let element"> {{element.batchName}}</td>
         </ng-container>
 
 
@@ -33,8 +33,8 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action</th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="accent"><mat-icon>edit</mat-icon></button>
-                <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+                <button mat-icon-button color="accent" (click)="editStudent(element)"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
