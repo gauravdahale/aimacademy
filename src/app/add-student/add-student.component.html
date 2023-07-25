@@ -1,98 +1,56 @@
-<div class="container mt-4">
-    <h1>Add Student</h1>
+<div class="container mt-4 p-5">
+    <h1>{{mode}} Student</h1>
     <div class="row" [formGroup]="form">
         <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
                 Student Name
             </mat-label>
             <input matInput formControlName="studentName">
-            <mat-error *ngIf="StudentName.invalid  &&  (StudentName.touched || StudentName.dirty)">
+<!--            <mat-error *ngIf="StudentName.invalid  &&  (StudentName.touched || StudentName.dirty)">-->
                 <mat-error style="color: red;" *ngIf="StudentName.errors?.required">*It is Required.</mat-error>
                 <mat-error style="color: red;" *ngIf="StudentName.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
+<!--            </mat-error>-->
         </mat-form-field>
-
         <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
                 Mobile Number
             </mat-label>
             <input matInput formControlName="studentNumber">
+            <mat-error *ngIf="StudentNumber.invalid  &&  (StudentNumber.touched || StudentNumber.dirty)">
+            Invalid Input </mat-error>
+
+                <mat-error style="color: red;" *ngIf="StudentNumber.errors?.required">*It is Required.</mat-error>
+                <mat-error style="color: red;" *ngIf="StudentNumber.errors?.pattern">*Enter Only Character.</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-md-12">
+        <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
-                Address
+                Roll Number
             </mat-label>
-            <input matInput formControlName="address">
-            <mat-error *ngIf="Address.invalid  &&  (Address.touched || Address.dirty)">
-                <mat-error style="color: red;" *ngIf="Address.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="Address.errors?.pattern">*Enter Only Character.</mat-error>
+            <input matInput formControlName="rollNo">
+            <mat-error *ngIf="RollNo.invalid  &&  (RollNo.touched || RollNo.dirty)">
+                <mat-error style="color: red;" *ngIf="RollNo.errors?.required">*It is Required.</mat-error>
+                <mat-error style="color: red;" *ngIf="RollNo.errors?.pattern">*Enter Only Character.</mat-error>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="col-md-6">
-            <mat-label>
-                Fathers Name
-            </mat-label>
-            <input matInput formControlName="fathersName">
-            <mat-error *ngIf="FatherName.invalid  &&  (FatherName.touched || FatherName.dirty)">
-                <mat-error style="color: red;" *ngIf="FatherName.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="FatherName.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
-        </mat-form-field>
 
 
         <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
                 Fathers Number
             </mat-label>
-            <input matInput formControlName="fathersNumber">
-            <mat-error *ngIf="FathersNumber.invalid  &&  (FathersNumber.touched || FathersNumber.dirty)">
-                <mat-error style="color: red;" *ngIf="FathersNumber.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="FathersNumber.errors?.pattern">*Enter Only Character.</mat-error>
+            <input matInput formControlName="parentsNumber">
+            <mat-error *ngIf="ParentsNumber.invalid  &&  (ParentsNumber.touched || ParentsNumber.dirty)">
+                <mat-error style="color: red;" *ngIf="ParentsNumber.errors?.required">*It is Required.</mat-error>
+                <mat-error style="color: red;" *ngIf="ParentsNumber.errors?.pattern">*Enter Only Character.</mat-error>
             </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-md-8">
-            <mat-label>
-                College Name
-            </mat-label>
-            <input matInput formControlName="collegeName">
-            <mat-error *ngIf="CollegeName.invalid  &&  (CollegeName.touched || CollegeName.dirty)">
-                <mat-error style="color: red;" *ngIf="CollegeName.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="CollegeName.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="col-md-4">
-            <mat-label>Standard</mat-label>
-            <mat-select formControlName="standard">
-                <mat-option value="9th" >9th</mat-option>
-                <mat-option value="10th" >10th</mat-option>
-                <mat-option value="11th">11th</mat-option>
-                <mat-option value="12th">12th</mat-option>
-            </mat-select>
-            <mat-error *ngIf="Standard.invalid  &&  (Standard.touched || Standard.dirty)">
-                <mat-error style="color: red;" *ngIf="Standard.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="Standard.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="col-md-6">
-            <mat-label>
-                City
-            </mat-label>
-            <input matInput formControlName="city">
-            <mat-error *ngIf="City.invalid  &&  (City.touched || City.dirty)">
-                <mat-error style="color: red;" *ngIf="City.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="City.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
-        </mat-form-field>
-
-
         <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
                 Select Batch
             </mat-label>
             <mat-select formControlName="batchName">
                 <mat-option *ngFor="let b of (batch$|async)" [value]="b.className">{{b.className}}</mat-option>
-                <mat-option>Batch B</mat-option>
             </mat-select>
             <mat-error *ngIf="BatchName.invalid  &&  (BatchName.touched || BatchName.dirty)">
                 <mat-error style="color: red;" *ngIf="BatchName.errors?.required">*It is Required.</mat-error>
@@ -101,5 +59,9 @@
         </mat-form-field>
 
     </div>
-    <button mat-raised-button color="primary" (click)="Submit()">Submit</button>
+    <div class="text-center" >
+    <button mat-raised-button color="primary" (click)="Submit()">Submit</button> &nbsp;
+        <button mat-raised-button color="warn" (click)="mDialogRef.close()">Cancel</button> &nbsp;
+
+    </div>
 </div>

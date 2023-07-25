@@ -30,3 +30,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    1px 20px 30px rgba(16, 16, 16, 0.3),
    1px 25px 50px rgba(16, 16, 16, 0.2);
 }
+.mdc-text-field{
+   /*padding: 0.4em 0px;*/
+   /*top: -1.5em;*/
+}
+
+.mat-mdc-text-field-wrapper  {
+
+ /*padding: 0.4em 0px;*/
+ /*  top: -1.5em;*/
+}
