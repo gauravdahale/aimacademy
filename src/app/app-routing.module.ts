@@ -1,12 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NavComponent} from "./nav/nav.component";
-import {AuthGuard} from "@angular/fire/auth-guard";
 import {ClassListComponent} from "./class-list/class-list.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {StudentsListComponent} from "./students-list/students-list.component";
 import {AddStudentComponent} from "./add-student/add-student.component";
 import {AddAttendanceComponent} from "./add-attendance/add-attendance.component";
+import {AttendanceListComponent} from "./attendance-list/attendance-list.component";
+import {LoginComponent} from "./login/login.component";
+import {AuthGuard} from "./services/auth.guard";
 
 const routes: Routes = [
 
@@ -20,38 +22,47 @@ const routes: Routes = [
 
       {
         path: '',
+        redirectTo:'class-list',
+
         pathMatch: 'full',
-        component: DashboardComponent,
+        // component: ClassListComponent,
         // canActivate: [AuthGuard],
 
       },
       {
         path: 'class-list',
         component: ClassListComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
       {
         path: 'student-list',
         component: StudentsListComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
       {
         path: 'add-student',
         component: AddStudentComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
       {
         path: 'add-attendance',
         component: AddAttendanceComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
+      {
+        path: 'attendance',
+        component: AttendanceListComponent,
+        canActivate: [AuthGuard],
+
+      },
+
     ],
   },
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

@@ -10,7 +10,7 @@ import {needConfirmation} from "../confirm-dialog/confirm-dialog.decorator";
 @Component({
     selector: 'app-class-list',
     templateUrl: './class-list.component.html',
-    styleUrls: ['./class-list.component.css']
+    styleUrls: ['./class-list.component.scss']
 })
 export class ClassListComponent implements OnInit, OnDestroy {
     _destroyed$ = new Subject()

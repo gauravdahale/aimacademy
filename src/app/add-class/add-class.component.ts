@@ -7,7 +7,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 @Component({
     selector: 'app-add-class',
     templateUrl: './add-class.component.html',
-    styleUrls: ['./add-class.component.css']
+    styleUrls: ['./add-class.component.scss']
 })
 export class AddClassComponent {
     className = ''

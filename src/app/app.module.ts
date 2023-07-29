@@ -43,6 +43,10 @@ import {MatRadioModule} from "@angular/material/radio";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {CustomDateAdapter, MY_DATE_FORMATS} from "./CustomDateAdapter";
 import {PrettyJsonModule} from "angular2-prettyjson";
+import {DatePipe} from "@angular/common";
+import {AttendanceListComponent} from './attendance-list/attendance-list.component';
+import {LoginComponent} from './login/login.component';
+import {AuthGuard} from "./services/auth.guard";
 
 @NgModule({
     declarations: [
@@ -54,6 +58,8 @@ import {PrettyJsonModule} from "angular2-prettyjson";
         StudentsListComponent,
         AddStudentComponent,
         AddAttendanceComponent,
+        AttendanceListComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
@@ -76,7 +82,6 @@ import {PrettyJsonModule} from "angular2-prettyjson";
         MatMenuModule,
         RouterOutlet,
         RouterLink,
-
         ReactiveFormsModule,
         MatFormFieldModule,
         MatSelectModule,
@@ -98,6 +103,8 @@ import {PrettyJsonModule} from "angular2-prettyjson";
             deps: [MatDialog],
             multi: true
         },
+        DatePipe,
+        AuthGuard,
         {provide: MAT_DATE_LOCALE, useValue: 'en-US'}, // Set the desired locale
         {provide: DateAdapter, useClass: CustomDateAdapter},
         {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},

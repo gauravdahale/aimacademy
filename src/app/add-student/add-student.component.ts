@@ -12,7 +12,7 @@ import {ngbAlertFadingTransition} from "@ng-bootstrap/ng-bootstrap/alert/alert-t
 @Component({
     selector: 'app-add-student',
     templateUrl: './add-student.component.html',
-    styleUrls: ['./add-student.component.css']
+    styleUrls: ['./add-student.component.scss']
 })
 export class AddStudentComponent implements OnInit {
     batch$: Observable<any[]>

@@ -7,7 +7,7 @@
     <mat-nav-list>
       <a mat-list-item routerLink="class-list">Class List</a>
       <a mat-list-item href="student-list">Student List</a>
-      <a mat-list-item href="add-attendance">Add Attendance</a>
+      <a mat-list-item href="attendance">Attendance</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,7 +20,16 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>aimacademy</span>
+      <span>Aim Academy</span>
+      <span class="example-spacer"></span>
+
+      <button mat-stroked-button style="vertical-align: middle;" aria-label="Example icon-button with share icon" class ='logout' [matMenuTriggerFor]="menu">
+        <mat-icon>person_pin</mat-icon>Welcome&nbsp;
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="logout()" mat-menu-item>Logout</button>
+      </mat-menu>
+
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
