@@ -1,0 +1,57 @@
+<div class="container">
+<div class="container d-flex p-2  m-2 justify-content-between">
+<div>
+    <mat-form-field>
+        <mat-label>Select Batch</mat-label>
+        <mat-select [(ngModel)]="batchSelected">
+            <mat-option *ngFor="let b of (batch$|async)" [value]="b.className">{{b.className}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-icon-button color="primary" class="ms-2" (click)="search()"><mat-icon>search</mat-icon></button>
+
+</div>
+    <div class="mt-2">
+        <button mat-raised-button color="accent" class="rounded" (click)="AddAttendance()"><mat-icon>add</mat-icon> Add </button>
+    </div>
+</div>
+
+    <section>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element;let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="className">
+            <th mat-header-cell *matHeaderCellDef> Class Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.className}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="present">
+            <th mat-header-cell *matHeaderCellDef> Present </th>
+            <td mat-cell *matCellDef="let element"> {{getPresent(element.attendance)}} </td>
+        </ng-container>
+        <ng-container matColumnDef="absent">
+            <th mat-header-cell *matHeaderCellDef> Absent </th>
+            <td mat-cell *matCellDef="let element"> {{getAbsent(element.attendance)}} </td>
+        </ng-container>
+        <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{getTotal(element.attendance)}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>
+</div>
