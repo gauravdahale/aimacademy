@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Database, get, increment, objectVal, ref, set, update} from "@angular/fire/database";
-import {collection, collectionData, deleteDoc, doc, Firestore} from "@angular/fire/firestore";
+import {collection, collectionData, deleteDoc, doc, Firestore, query, where} from "@angular/fire/firestore";
 import {Observable} from "rxjs";
 import {Student} from "../interfaces/Student";
 
@@ -35,7 +35,12 @@ export class StudentService {
         let studentRef=  collection(this.mFirestore,'students')
         return collectionData(studentRef,{idField:'id'}) as Observable<Student[]>
     }
-
+    fetchStudentsFromBatch(batchName:string) {
+        let studentRef=  collection(this.mFirestore,'students')
+        // Create a query against the collection.
+        const q = query(studentRef, where("batchName", "==", batchName));
+        return collectionData(q,{idField:'id'}) as Observable<Student[]>
+    }
     deleteStudent(id:string) {
         let studentRef = doc(this.mFirestore,'students/'+id)
        return  deleteDoc(studentRef)

@@ -23,6 +23,7 @@
                                     <!--EMAIL-->
                                     <div class="form-outline  mb-4">
                                         <div class="form-group w-50 mx-auto">
+
                                             <label class="form-label text-secondary" >Username</label>
                                             <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"  class="form-control" formControlName="email" placeholder="Username" />
                                             <span  *ngIf=" username && username.invalid  &&  username.touched" style="color: red;">Please Enter Valid Username</span>

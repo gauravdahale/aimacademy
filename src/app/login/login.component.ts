@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16),Validators.pattern('(?=.*[0-9a-zA-Z]).{6,}')]),
     })
     this.changePasswordForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('[a-z0-9._%+-]+@[a-z.-]+\\.[a-z]{2,4}$')]),
     })
 
   }

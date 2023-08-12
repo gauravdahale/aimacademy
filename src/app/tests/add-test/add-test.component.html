@@ -1,0 +1,87 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Create Test</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+           <mat-card>
+            <div class="row">
+                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                    <mat-label>Test Name</mat-label>
+                    <input matInput formControlName="testName" required>
+                    <mat-error *ngIf="form.get('testName')?.hasError('required')">Test Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                    <mat-label>Batch Name</mat-label>
+                    <mat-select formControlName="batchName" (selectionChange)="onBatchSelect($event)">
+                        <mat-option *ngFor="let c of (class$|async)" [value]="c.className">{{c.className}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="form.get('date')?.hasError('required')">Date is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                    <mat-label>Total Marks</mat-label>
+                    <input matInput [formControl]="totalMarks" required (blur)="onBlur($event)">
+                    <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required</mat-error>
+                </mat-form-field>
+            </div>
+           </mat-card>
+            <hr>
+
+            <div formArrayName="students" *ngIf="batschSelected!=null">
+<!--                <button mat-raised-button color="primary" type="button" (click)="addStudent()">Add Student</button>-->
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>RollNo</th>
+                        <th>Total</th>
+                        <th>Marks obtained</th>
+                    </tr>
+                    <tr *ngFor="let studentGroup of studentsFormArray.controls; let i = index" [formGroupName]="i">
+                        <td>{{studentGroup.get('name')?.value!}}</td>
+                        <td>{{ studentGroup.get('rollNo')?.value}}</td>
+                        <td>{{ studentGroup.get('totalMarks')?.value }}</td>
+                        <td>
+<!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                            <input type="text" id="correct" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('marksGreaterThanTotal')">
+                                Marks cannot be greater than total marks
+                            </div>
+                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
+                                Marks should be an integer
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+
+<!--                        <mat-form-field appearance="outline">-->
+<!--                            <mat-label>Rank</mat-label>-->
+<!--                            <input matInput formControlName="rank">-->
+<!--                        </mat-form-field>-->
+
+
+
+            </div>
+
+
+            <div class="text-center m-3">
+                <button class="col-md-3" mat-raised-button color="primary" type="submit">Create</button>
+            </div>
+        </form>
+    </mat-card-content>
+
+<prettyjson [obj]="studentsFormArray.getRawValue()"></prettyjson>
+</mat-card>
+

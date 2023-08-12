@@ -47,6 +47,13 @@ import {DatePipe} from "@angular/common";
 import {AttendanceListComponent} from './attendance-list/attendance-list.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from "./services/auth.guard";
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { StudentListComponent } from './users/users-list/student-list/student-list.component';
+import { ParentListComponent } from './users/users-list/parent-list/parent-list.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import { TestListComponent } from './tests/test-list/test-list.component';
+import { AddTestComponent } from './tests/add-test/add-test.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
     declarations: [
@@ -60,6 +67,11 @@ import {AuthGuard} from "./services/auth.guard";
         AddAttendanceComponent,
         AttendanceListComponent,
         LoginComponent,
+        UsersListComponent,
+        StudentListComponent,
+        ParentListComponent,
+        TestListComponent,
+        AddTestComponent,
     ],
     imports: [
         BrowserModule,
@@ -94,6 +106,8 @@ import {AuthGuard} from "./services/auth.guard";
         MatRadioModule,
         MatDialogModule,
         PrettyJsonModule,
+        MatTabsModule,
+        MatAutocompleteModule,
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
