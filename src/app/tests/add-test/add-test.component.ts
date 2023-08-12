@@ -19,6 +19,8 @@ import {StudentService} from "../../services/student.service";
 import {Student} from "../../interfaces/Student";
 import {MatSelectChange} from "@angular/material/select";
 import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-add-test',
@@ -38,12 +40,15 @@ export class AddTestComponent implements OnInit {
     names: string[] = ['John', 'Jane', 'Alice', 'Bob', 'Charlie']; // Sample options
     filteredNamesArray: Observable<string[]>[] = [];
     batschSelected: string | null = null
+
     // dataSource:FormGroup[];
 
     constructor(private fb: FormBuilder,
                 private readonly mTestService: TestService,
                 // private readonly matDialogRef: MatDialogRef<AddTestComponent>,
                 private readonly mStudentService: StudentService,
+                private readonly router: Router,
+                private readonly matSnackbar: MatSnackBar,
                 private readonly testService: TestService) {
         this.class$ = this.mTestService.getClass()
         this.form = this.fb.group({
@@ -55,18 +60,20 @@ export class AddTestComponent implements OnInit {
         // this.dataSource = this.studentsFormArray.controls.map(studentFormGroup => studentFormGroup.value);
 
     }
+
     // Custom validator function to ensure input is not greater than totalMarks
     marksNotGreaterThanTotalValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        const totalMarks =parseFloat(this.totalMarks.value!); // Convert to a number
+        const totalMarks = parseFloat(this.totalMarks.value!); // Convert to a number
         // alert(totalMarks)
         const marksObtained = parseFloat(control.value); // Convert to a number
 
         if (!isNaN(marksObtained) && !isNaN(totalMarks) && marksObtained > totalMarks) {
-            return { marksGreaterThanTotal: true };
+            return {marksGreaterThanTotal: true};
         }
 
         return null;
     };
+
     ngOnInit() {
 
 
@@ -85,26 +92,28 @@ export class AddTestComponent implements OnInit {
     }
 
     getFilteredNames(index: number): Observable<string[]> {
-      let c= this.studentsFormArray.at(index).get('name')!.valueChanges.pipe(
+        let c = this.studentsFormArray.at(index).get('name')!.valueChanges.pipe(
             startWith(''),
-          // debounceTime(300), // Wait for 300 milliseconds
-          map(value =>this._filter(value || ''))
+            // debounceTime(300), // Wait for 300 milliseconds
+            map(value => this._filter(value || ''))
         );
 // c.subscribe(r=>{
 //     console.log('Into getFilteredNames',r)})
-      return  c
+        return c
     }
+
     private _filter(value: string): string[] {
         console.log(value)
         const filterValue = value.toLowerCase();
-       let x: string[] = this.names.filter(name => name.toLowerCase().includes(filterValue))
-        console.log('intp Filter',x)
+        let x: string[] = this.names.filter(name => name.toLowerCase().includes(filterValue))
+        console.log('intp Filter', x)
 
         return x
 
     }
+
     addStudent() {
-      const   studentFormGroup = this.fb.group({
+        const studentFormGroup = this.fb.group({
             rollNo: ['', Validators.required],
             name: ['', Validators.required],
             totalMarks: [this.totalMarks.value, Validators.required],
@@ -118,13 +127,14 @@ export class AddTestComponent implements OnInit {
         //     this.filteredNamesArray[index] = this.getFilteredNames(index);
         // });
     }
-    addStudent2(student:any) {
-        const   studentFormGroup = this.fb.group({
-            rollNo: [{value:student.rollNo, disabled: true}, Validators.required],
-            name: [{value:student.studentName,disabled:true}, Validators.required],
-            totalMarks: [{value:this.totalMarks.value,disabled:true}, Validators.required],
+
+    addStudent2(student: any) {
+        const studentFormGroup = this.fb.group({
+            rollNo: [{value: student.rollNo, disabled: true}, Validators.required],
+            name: [{value: student.studentName, disabled: true}, Validators.required],
+            totalMarks: [{value: this.totalMarks.value, disabled: true}, Validators.required],
             // rank: [''],
-            correct: ['', [this.numberValidator,  this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
+            correct: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
         });
 
         this.studentsFormArray.push(studentFormGroup);
@@ -139,11 +149,12 @@ export class AddTestComponent implements OnInit {
     onSubmit() {
         if (this.form.valid) {
             // Perform your form submission logic here
-            // this.testService.addTest(this.form.value as TestModel).then(() => {
+            this.testService.addTest(this.form.getRawValue() as TestModel).then(() => {
                 // this.matDialogRef.close()
-            // })
 
-            console.log(this.form.value);
+                this.router.navigateByUrl('tests').then(r => this.matSnackbar.open('Test added successfully !')._dismissAfter(3000))
+            })
+            
         }
     }
 
@@ -159,18 +170,19 @@ export class AddTestComponent implements OnInit {
         this.students$ = this.mStudentService.fetchStudentsFromBatch(this.batschSelected!)
         this.studentsFormArray.clear()
         this.mStudentService.fetchStudentsFromBatch(this.batschSelected!).pipe(
-            map(x=>x.map(s=>{
-             return {   "studentName":s.studentName,
-                    "rollNo":s.rollNo,
-                 "totalMarks":this.totalMarks?.value,
-                 "correct":""
-                 }
-            }
+            map(x => x.map(s => {
+                    return {
+                        "studentName": s.studentName,
+                        "rollNo": s.rollNo,
+                        "totalMarks": this.totalMarks?.value,
+                        "correct": ""
+                    }
+                }
             ))
-        ).subscribe(res=>{
+        ).subscribe(res => {
             this.studentsFormArray.clear()
-            res.forEach(it=>{
-          this.addStudent2(it)
+            res.forEach(it => {
+                this.addStudent2(it)
             })
 
 
@@ -187,7 +199,7 @@ export class AddTestComponent implements OnInit {
     }
 
     onAutocompleteSelected($event: MatAutocompleteSelectedEvent, i: number) {
-      let s =  this.students.filter(x=>x.studentName==$event.option.value)
+        let s = this.students.filter(x => x.studentName == $event.option.value)
         // alert($event.option.value)
         // this.studentsFormArray.at(i).get('rollNo')?.setValue(s[i].rollNo)
     }
@@ -197,35 +209,38 @@ export class AddTestComponent implements OnInit {
             control.markAsTouched(); // Mark the control as touched to trigger validation
         }
     }
+
     // displayFn(user: string): string {
     //     return user && user ? user : '';
     // }
 
     onBlur($event: any) {
         // alert($event.target.value)
-        this.studentsFormArray.controls.forEach(it=>{
+        this.studentsFormArray.controls.forEach(it => {
             it.get('totalMarks')?.setValue($event.target.value)
         })
     }
+
     // Custom validator function to ensure value is not greater than totalMarks
     maxMarksValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        const totalMarks =+this.totalMarks.value!
+        const totalMarks = +this.totalMarks.value!
         // alert(this.totalMarks.value)
         const marksObtained = +control.value;
         if (marksObtained && totalMarks && marksObtained > totalMarks) {
-            return { maxMarksExceeded: true };
+            return {maxMarksExceeded: true};
         }
         return null;
     };
     // Custom validator function to ensure value is an integer
     // Custom validator function to ensure value is a number
-     numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
         const value = control.value;
         // alert(isNaN(value))
-        if (value !== null && isNaN(value) ) {
-            return { notANumber: true };
+        if (value !== null && isNaN(value)) {
+            return {notANumber: true};
         }
         return null;
     };
 }
+
 // Custom validator function to ensure value is not greater than totalMarks

@@ -16,7 +16,7 @@ export class TestService {
   }
 
   fetchTests() {
-    return this.mFirestore.collection<TestModel>('tests').valueChanges()
+    return this.mFirestore.collection<TestModel>('tests',ref => ref.orderBy('date',"desc")).valueChanges()
   }
   getClass(){
     return this.mFirestore.collection('class').valueChanges().pipe(shareReplay(1))
