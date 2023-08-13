@@ -12,6 +12,7 @@ import {AuthGuard} from "./services/auth.guard";
 import {UsersListComponent} from "./users/users-list/users-list.component";
 import {TestListComponent} from "./tests/test-list/test-list.component";
 import {AddTestComponent} from "./tests/add-test/add-test.component";
+import {EditTestComponent} from "./tests/edit-test/edit-test.component";
 
 const routes: Routes = [
 
@@ -80,7 +81,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
 
       },
-
+      { path: 'edit-test/:testId', component: EditTestComponent }
     ],
   },
   { path: 'login', component: LoginComponent },

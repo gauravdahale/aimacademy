@@ -54,6 +54,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { TestListComponent } from './tests/test-list/test-list.component';
 import { AddTestComponent } from './tests/add-test/add-test.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { EditTestComponent } from './tests/edit-test/edit-test.component';
 
 @NgModule({
     declarations: [
@@ -72,6 +73,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         ParentListComponent,
         TestListComponent,
         AddTestComponent,
+        EditTestComponent,
     ],
     imports: [
         BrowserModule,
@@ -111,6 +113,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+        DatePipe,
         {
             provide: ENVIRONMENT_INITIALIZER,
             useFactory: initializeDialogService,

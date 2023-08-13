@@ -21,6 +21,7 @@ import {MatSelectChange} from "@angular/material/select";
 import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {TestInfo} from "../../model";
 
 @Component({
     selector: 'app-add-test',
@@ -148,12 +149,17 @@ export class AddTestComponent implements OnInit {
 
     onSubmit() {
         if (this.form.valid) {
-            // Perform your form submission logic here
-            this.testService.addTest(this.form.getRawValue() as TestModel).then(() => {
-                // this.matDialogRef.close()
+            this.testService.addTest(this.form.getRawValue() as TestInfo).then((re) => {
 
-                this.router.navigateByUrl('tests').then(r => this.matSnackbar.open('Test added successfully !')._dismissAfter(3000))
+                this.testService.addTestMarksByStudent(this.form.getRawValue() as TestInfo,re.id!).then(()=>{
+
+                    // this.matDialogRef.close()
+
+                    this.router.navigateByUrl('tests').then(r => this.matSnackbar.open('Test added successfully !')._dismissAfter(3000))
+                })
             })
+            // Perform your form submission logic here
+
             
         }
     }

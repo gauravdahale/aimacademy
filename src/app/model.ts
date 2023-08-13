@@ -1,8 +1,15 @@
+
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
+
+
 export interface TestInfo {
+    id:string,
     testName: string;
-    date: string; // You might want to use a Date type here
+    date:Timestamp
     batchName: string;
     students: StudentInfo[];
+    createdAt:Date
 }
 
 export interface StudentInfo {
@@ -10,4 +17,5 @@ export interface StudentInfo {
     name: string;
     totalMarks: string;
     correct: string;
+    rank?:number;
 }
