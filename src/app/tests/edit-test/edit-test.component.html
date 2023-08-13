@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{testDetails?.testName}}</mat-card-title>
+        <mat-card-subtitle> {{(testDetails?.date)?.toDate()|date:'dd-MM-yyyy'}} </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <hr>
+        <form [formGroup]="editForm" >
+
+            <!-- Students Section -->
+            <h2>Students</h2>
+            <div formArrayName="students">
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>RollNo</th>
+                    <th>Total</th>
+                    <th>Marks obtained</th>
+                </tr>
+
+                <tr *ngFor="let studentGroup of studentFormArray?.controls; let i = index" [formGroupName]="i">
+                    <td>{{studentGroup.get('name')?.value!}}</td>
+                    <td>{{ studentGroup.get('rollNo')?.value}}</td>
+                    <td>{{ studentGroup.get('totalMarks')?.value }}</td>
+                    <td>
+                        <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                        <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+
+                        <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
+                            Marks should be an integer
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+        </form>
+    </mat-card-content>
+<prettyjson [obj]="editForm.getRawValue()"> </prettyjson>
+    <div class="text-center m-3">
+        <button mat-raised-button color="primary" type="submit" (click)="saveChanges()">Save</button>&nbsp;
+        <button mat-raised-button color="warn" routerLink="/test-list">Cancel</button>
+    </div>
+</mat-card>
