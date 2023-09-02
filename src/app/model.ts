@@ -9,6 +9,7 @@ export interface TestInfo {
     date:Timestamp
     batchName: string;
     students: StudentInfo[];
+    totalMarks:string
     createdAt:Date
 }
 
@@ -18,4 +19,11 @@ export interface StudentInfo {
     totalMarks: string;
     correct: string;
     rank?:number;
+}
+export  interface  StudentAttendance{
+    className:string,
+    date:string,
+    rollNo:string,
+    status:string,
+    studentName:string
 }

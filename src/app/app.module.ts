@@ -55,6 +55,19 @@ import { TestListComponent } from './tests/test-list/test-list.component';
 import { AddTestComponent } from './tests/add-test/add-test.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { EditTestComponent } from './tests/edit-test/edit-test.component';
+import { MessagesComponent } from './messages/messages.component';
+import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { AddMessageComponent } from './messages/add-message/add-message.component';
+import { SendUserMessageComponent } from './messages/send-user-message/send-user-message.component';
+import { SendImageMessageComponent } from './messages/send-image-message/send-image-message.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MaterialFileInputModule} from "ngx-material-file-input";
+import { GalleryComponent } from './gallery/gallery.component';
+import { AddGalleryComponent } from './gallery/add-gallery/add-gallery.component';
+import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -74,10 +87,19 @@ import { EditTestComponent } from './tests/edit-test/edit-test.component';
         TestListComponent,
         AddTestComponent,
         EditTestComponent,
+        MessagesComponent,
+        StudentAttendanceComponent,
+        AddMessageComponent,
+        SendUserMessageComponent,
+        SendImageMessageComponent,
+        GalleryComponent,
+        AddGalleryComponent,
+        BulkDataUploadComponent,
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         NgbModule,
         AppRoutingModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -110,6 +132,10 @@ import { EditTestComponent } from './tests/edit-test/edit-test.component';
         PrettyJsonModule,
         MatTabsModule,
         MatAutocompleteModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MaterialFileInputModule,
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

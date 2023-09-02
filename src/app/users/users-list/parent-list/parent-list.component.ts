@@ -6,6 +6,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {needConfirmation} from "../../../confirm-dialog/confirm-dialog.decorator";
 import {AddClassComponent} from "../../../add-class/add-class.component";
+import {AddMessageComponent} from "../../../messages/add-message/add-message.component";
+import {SendUserMessageComponent} from "../../../messages/send-user-message/send-user-message.component";
 
 @Component({
   selector: 'app-parent-list',
@@ -43,4 +45,14 @@ export class ParentListComponent {
         })
 
   }
+
+    message(element:any) {
+      this.marDialog.open(SendUserMessageComponent
+      ,{
+          width:'600px',
+              data:element
+          })
+
+
+    }
 }

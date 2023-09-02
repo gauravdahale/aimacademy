@@ -2,9 +2,12 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Database, get, increment, objectVal, ref, set, update} from "@angular/fire/database";
-import {collection, collectionData, deleteDoc, doc, Firestore, query, where} from "@angular/fire/firestore";
+import {collection, collectionData, deleteDoc, doc, docData, Firestore, query, where} from "@angular/fire/firestore";
 import {Observable} from "rxjs";
 import {Student} from "../interfaces/Student";
+import {AttendanceItem} from "../interfaces/Attendance.model";
+import {StudentAttendance} from "../model";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Injectable({
     providedIn: 'root'
@@ -44,5 +47,19 @@ export class StudentService {
     deleteStudent(id:string) {
         let studentRef = doc(this.mFirestore,'students/'+id)
        return  deleteDoc(studentRef)
+    }
+    fetchStudentAttendance(id:string){
+        let attendanceRef = doc(this.mFirestore,`studentAttendance/${id}`)
+        return docData(attendanceRef,{idField:'id'})
+    }
+
+    fetchStudentById(id: string) {
+        let studentRef= doc(this.mFirestore,`students/${id}`)
+        return docData(studentRef) as Observable<Student>
+    }
+
+    fetchClasses() {
+const ref= collection(this.mFirestore,'class')
+        return collectionData(ref,{idField:'id'})
     }
 }

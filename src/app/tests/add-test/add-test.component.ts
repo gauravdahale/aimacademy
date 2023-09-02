@@ -133,7 +133,7 @@ export class AddTestComponent implements OnInit {
         const studentFormGroup = this.fb.group({
             rollNo: [{value: student.rollNo, disabled: true}, Validators.required],
             name: [{value: student.studentName, disabled: true}, Validators.required],
-            totalMarks: [{value: this.totalMarks.value, disabled: true}, Validators.required],
+            totalMarks: [ this.totalMarks.value, Validators.required],
             // rank: [''],
             correct: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
         });

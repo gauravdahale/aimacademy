@@ -28,6 +28,7 @@ export class StudentsListComponent implements OnInit, OnDestroy {
         private matDialog: MatDialog,
         private matSnackBar: MatSnackBar,
         private mFirestore: AngularFirestore,
+
         private mStudentService: StudentService,
         private router: Router,
         private mDialog: MatDialog,
@@ -74,4 +75,7 @@ export class StudentsListComponent implements OnInit, OnDestroy {
     }
 
 
+    studentAttendance(id:string) {
+        this.router.navigate(['student-attendance',id])
+    }
 }

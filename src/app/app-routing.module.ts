@@ -13,6 +13,10 @@ import {UsersListComponent} from "./users/users-list/users-list.component";
 import {TestListComponent} from "./tests/test-list/test-list.component";
 import {AddTestComponent} from "./tests/add-test/add-test.component";
 import {EditTestComponent} from "./tests/edit-test/edit-test.component";
+import {MessagesComponent} from "./messages/messages.component";
+import {StudentAttendanceComponent} from "./student-attendance/student-attendance.component";
+import {GalleryComponent} from "./gallery/gallery.component";
+import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.component";
 
 const routes: Routes = [
 
@@ -46,6 +50,12 @@ const routes: Routes = [
 
       },
       {
+        path: 'messages',
+        component: MessagesComponent,
+        canActivate: [AuthGuard],
+
+      },
+      {
         path: 'add-student',
         component: AddStudentComponent,
         canActivate: [AuthGuard],
@@ -58,8 +68,25 @@ const routes: Routes = [
 
       },
       {
+        path:'student-attendance/:id',
+        component:StudentAttendanceComponent,
+        canActivate:[AuthGuard]
+      },
+      {
         path: 'attendance',
         component: AttendanceListComponent,
+        canActivate: [AuthGuard],
+
+      },
+      {
+        path: 'gallery',
+        component: GalleryComponent,
+        canActivate: [AuthGuard],
+
+      },
+      {
+        path: 'upload',
+        component: BulkDataUploadComponent,
         canActivate: [AuthGuard],
 
       },

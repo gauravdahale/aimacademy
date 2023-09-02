@@ -47,8 +47,11 @@ export class AddStudentComponent implements OnInit {
             studentName: new FormControl(this.data?.studentName, Validators.required),
             rollNo: new FormControl(this.data?.rollNo, Validators.required),
             studentNumber: new FormControl(this.data?.studentNumber, Validators.required),
-            parentsNumber: new FormControl(this.data?.parentsNumber, Validators.required),
+            fathersName: new FormControl(this.data?.fathersName, Validators.required),
+            fathersNumber: new FormControl(this.data?.fathersNumber, Validators.required),
             batchName: new FormControl(this.data?.batchName, Validators.required),
+            collegeName: new FormControl(this.data?.collegeName, Validators.required),
+            city: new FormControl(this.data?.city, Validators.required),
         })
     }
 
@@ -60,12 +63,22 @@ export class AddStudentComponent implements OnInit {
         return this.form.get('studentNumber')
     }
 
+    get CollegeNAme() {
+        return this.form.get('collegeName')
+    }
+    get City(){
+        return this.form.get('city')
+    }
     get RollNo() {
         return this.form.get('rollNo')
     }
 
     get ParentsNumber() {
-        return this.form.get('parentsNumber')
+        return this.form.get('fathersNumber')
+    }
+
+    get FathersName() {
+        return this.form.get('fathersName')
     }
 
 

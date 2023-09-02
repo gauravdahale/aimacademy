@@ -27,6 +27,7 @@
     "bootstrap": "^5.2.3",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
+    "ngx-material-file-input": "^4.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

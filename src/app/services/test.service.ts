@@ -40,6 +40,7 @@ export class TestService {
       const result =  {
         'testName': test.testName,
         'date': test.date,
+        'totalMarks':student.totalMarks,
         "result": student.correct
       };
       batch.update(studentDocRef, {   [`results.${id}`]: result });

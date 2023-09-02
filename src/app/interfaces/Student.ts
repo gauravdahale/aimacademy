@@ -1,7 +1,10 @@
 export interface Student {
     studentName: string;
     studentNumber: string
-    parentsNumber: string
+fathersNumber: string
+city: string
+collegeName: string
+    fathersName: string
     batchName: string,
     rollNo: string,
     id: string
