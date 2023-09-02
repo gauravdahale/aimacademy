@@ -51,7 +51,7 @@ export class AddStudentComponent implements OnInit {
             fathersNumber: new FormControl(this.data?.fathersNumber, Validators.required),
             batchName: new FormControl(this.data?.batchName, Validators.required),
             collegeName: new FormControl(this.data?.collegeName, Validators.required),
-            city: new FormControl(this.data?.city, Validators.required),
+            // city: new FormControl(this.data?.city, Validators.required),
         })
     }
 
@@ -101,7 +101,7 @@ export class AddStudentComponent implements OnInit {
                 this.mDialogRef.close()
             })
         }
-        else {
+        else if(!this.form.valid) {
             this.matSnackBar.open('Form is invalid')._dismissAfter(3000)
             this.findInvalid()
         }
