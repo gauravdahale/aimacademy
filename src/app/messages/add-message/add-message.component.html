@@ -1,0 +1,35 @@
+<div class="container p-2">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Send Message</mat-card-title>
+        </mat-card-header>
+    <mat-card-content>
+        <div class="row" [formGroup]="form">
+
+        <mat-form-field >
+            <mat-label>Message Title</mat-label>
+            <input type="text" matInput  formControlName="title">
+        </mat-form-field>
+
+            <mat-form-field >
+                <mat-label>Message Description</mat-label>
+                <input type="text" matInput formControlName="message" >
+            </mat-form-field>
+
+            <mat-form-field >
+                <mat-label>Message To</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="All">All </mat-option>
+                    <mat-option *ngFor="let b of batchNames$|async" [value]="b.className" > {{b.className}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+<div class="d-flex justify-content-center">
+    <button mat-stroked-button color="primary" [disabled]="form.invalid" (click)="submit()">Submit</button>
+</div>
+
+
+        </div>
+    </mat-card-content>
+
+    </mat-card>
+</div>

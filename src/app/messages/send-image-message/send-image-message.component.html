@@ -1,0 +1,82 @@
+<form  [formGroup]="mForm" class="post-form">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar>
+<!--                <img src="src/favicon.ico" class="avatar"  alt=""/>-->
+            </div>
+            <mat-card-title>Send Image Message</mat-card-title>
+            <mat-card-subtitle>Message</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-progress-bar *ngIf="submitted" [value]="uploadProgress$ | async" mode="determinate">
+        </mat-progress-bar>
+        <mat-card-content>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <img
+                            *ngIf="mImagePreview"
+                            [src]="mImagePreview"
+                            alt="Cute Kitty Picture"
+                            class="preview-image"
+                    />
+                </div>
+                <div class="row col-md-6">
+
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Select a Image</mat-label>
+                        <ngx-mat-file-input formControlName="photo" placeholder="Basic outline placeholder">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>folder</mat-icon>
+                        <mat-error *ngIf="mForm.controls['photo']?.hasError('required')">
+                            Please select an image
+                        </mat-error>
+                        <mat-error *ngIf="mForm.controls['photo']?.hasError('image')">
+Enter a valid image                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Title</mat-label>
+                        <textarea
+                                formControlName="title"
+                                matInput
+                                placeholder="Tittle">
+
+                        </textarea>
+                        <mat-error *ngIf="mForm.controls['title'].hasError('required')">
+                            You <strong>SHOULD</strong> enter title
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Message</mat-label>
+                        <textarea
+                                formControlName="message"
+                                matInput
+                                placeholder="Enter Message "></textarea>
+                        <mat-error *ngIf="mForm  .controls['message'].hasError('required')">
+                           A message is  <strong>REQUIRED</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Message To</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option value="All">All </mat-option>
+                            <mat-option *ngFor="let b of batchNames$|async" [value]="b.className" > {{b.className}} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button
+                    (click)="postKitty()"
+                    [disabled]="mForm.invalid || submitted"
+                    color="primary"
+                    mat-raised-button
+            >
+                Send Message
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>
