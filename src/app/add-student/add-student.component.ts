@@ -88,7 +88,8 @@ export class AddStudentComponent implements OnInit {
 
     Submit() {
         if (this.form.valid && this.data==null) {
-            this.mFirestore.collection('students').doc(this.latestCounter!.toString()).set(this.form.value).then(() => {
+            this.RollNo
+            this.mFirestore.collection('students').doc(this.RollNo.value).set(this.form.value).then(() => {
                 this.mStudentService.updateCounter()
                 this.matSnackBar.open('Student Added Successfully')._dismissAfter(3000)
                 this.mDialogRef.close()
