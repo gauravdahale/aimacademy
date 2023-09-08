@@ -30,7 +30,7 @@ export class AddMessageComponent {
             message: new FormControl('', Validators.required),
             messageType: new FormControl('text', Validators.required),
             type: new FormControl('', Validators.required),
-            date: new FormControl(new Date(), Validators.required),
+            date: new FormControl(new Date().getTime(), Validators.required),
             imageUrl: new FormControl(null),
         })
     }

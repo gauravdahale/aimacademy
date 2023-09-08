@@ -17,6 +17,7 @@ import {MessagesComponent} from "./messages/messages.component";
 import {StudentAttendanceComponent} from "./student-attendance/student-attendance.component";
 import {GalleryComponent} from "./gallery/gallery.component";
 import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.component";
+import {SliderListComponent} from "./slider-list/slider-list.component";
 
 const routes: Routes = [
 
@@ -99,6 +100,12 @@ const routes: Routes = [
       {
         path: 'tests',
         component: TestListComponent,
+        canActivate: [AuthGuard],
+
+      },
+      {
+        path: 'sliders',
+        component: SliderListComponent,
         canActivate: [AuthGuard],
 
       },

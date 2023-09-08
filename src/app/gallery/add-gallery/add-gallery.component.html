@@ -2,7 +2,7 @@
     <mat-card>
         <mat-card-header>
             <div mat-card-avatar>
-                <img src="favicon.ico" class="avatar"  alt=""/>
+                <img ngSrc="favicon.ico" class="avatar"  alt=""/>
             </div>
             <mat-card-title>Send Image Message</mat-card-title>
             <mat-card-subtitle>Message</mat-card-subtitle>
@@ -18,7 +18,7 @@
                             *ngIf="mImagePreview"
                             [src]="mImagePreview"
                             alt="Cute Kitty Picture"
-                            class="preview-image"
+                            class="img-fluid"
                     />
                 </div>
                 <div class="row col-md-6">

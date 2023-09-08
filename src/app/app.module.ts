@@ -43,7 +43,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {CustomDateAdapter, MY_DATE_FORMATS} from "./CustomDateAdapter";
 import {PrettyJsonModule} from "angular2-prettyjson";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgOptimizedImage} from "@angular/common";
 import {AttendanceListComponent} from './attendance-list/attendance-list.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from "./services/auth.guard";
@@ -68,6 +68,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { AddGalleryComponent } from './gallery/add-gallery/add-gallery.component';
 import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.component";
 import {HttpClientModule} from "@angular/common/http";
+import { SliderListComponent } from './slider-list/slider-list.component';
+import { AddSliderComponent } from './slider-list/add-slider/add-slider.component';
 
 @NgModule({
     declarations: [
@@ -95,6 +97,8 @@ import {HttpClientModule} from "@angular/common/http";
         GalleryComponent,
         AddGalleryComponent,
         BulkDataUploadComponent,
+        SliderListComponent,
+        AddSliderComponent,
     ],
     imports: [
         BrowserModule,
@@ -136,6 +140,7 @@ import {HttpClientModule} from "@angular/common/http";
         MatPaginatorModule,
         MatProgressBarModule,
         MaterialFileInputModule,
+        NgOptimizedImage,
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

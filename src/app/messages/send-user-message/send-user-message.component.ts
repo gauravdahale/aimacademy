@@ -28,20 +28,20 @@ export class SendUserMessageComponent {
             message: new FormControl('', Validators.required),
             messageType: new FormControl('text', Validators.required),
             type: new FormControl('user', Validators.required),
-            date: new FormControl(new Date(), Validators.required),
+            date: new FormControl(new Date().getTime(), Validators.required),
             imageUrl: new FormControl(null),
         })
     }
 
     submit() {
 alert(this.data.rollNo + this.data.type)
-        // this.mMessagesService.sendMessage(this.form.value).then(() => {
-        //         this.matSnackBar.open('Message sent successfully')._dismissAfter(3000)
-        //         this.mDialogRef.close()
-        //     }
-        // ).catch(error => {
-        //     alert('error occurred!')
-        // })
+        this.mMessagesService.sendUserMessage(this.data.rollNo,this.form.value).then(() => {
+                this.matSnackBar.open('Message sent successfully')._dismissAfter(3000)
+                this.mDialogRef.close()
+            }
+        ).catch(error => {
+            alert('error occurred!')
+        })
     }
 
 

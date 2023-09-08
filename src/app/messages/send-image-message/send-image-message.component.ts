@@ -45,7 +45,7 @@ export class SendImageMessageComponent implements OnInit, OnDestroy {
           title: [null, Validators.required],
           message: [null, Validators.required],
           type: [null, Validators.required],
-          date: new FormControl(new Date(), Validators.required),
+          date: new FormControl(new Date().getTime(), Validators.required),
           messageType: new FormControl('image', Validators.required),
 
           imageUrl: [null]
