@@ -54,3 +54,30 @@ input[type="text"] {
   font-size: 12px;
   margin-top: 4px;
 }
+/* styles.css or styles.scss */
+.handset-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+.handset-table th,
+.handset-table td {
+  padding: 8px; /* Adjust the padding as needed */
+  border: 1px solid #ccc; /* Add borders as needed */
+  text-align: center; /* Center align text in table cells */
+}
+
+/* Media query for screens with a max-width of 600px (typical for handsets) */
+@media (max-width: 600px) {
+  .handset-table {
+    font-size: 12px; /* Further reduce font size for handsets */
+  }
+
+  .handset-table th,
+  .handset-table td {
+    padding: 4px; /* Further reduce padding for handsets */
+  }
+
+  /* Add any other specific styles for handsets here */
+}

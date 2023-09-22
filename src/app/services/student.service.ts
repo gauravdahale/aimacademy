@@ -38,6 +38,11 @@ export class StudentService {
         let studentRef=  collection(this.mFirestore,'students')
         return collectionData(studentRef,{idField:'id'}) as Observable<Student[]>
     }
+    fetchStudentsByClass( classSelected:string) {
+        let studentRef=  collection(this.mFirestore,'students')
+        const q = query(studentRef,where('batchName','==',classSelected))
+        return collectionData(q,{idField:'id'}) as Observable<Student[]>
+    }
     fetchStudentsFromBatch(batchName:string) {
         let studentRef=  collection(this.mFirestore,'students')
         // Create a query against the collection.

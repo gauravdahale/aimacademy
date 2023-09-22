@@ -22,6 +22,7 @@ import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {TestInfo} from "../../model";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
     selector: 'app-add-test',
@@ -41,21 +42,27 @@ export class AddTestComponent implements OnInit {
     names: string[] = ['John', 'Jane', 'Alice', 'Bob', 'Charlie']; // Sample options
     filteredNamesArray: Observable<string[]>[] = [];
     batschSelected: string | null = null
+    classSelected=localStorage.getItem('aimClass') || '';
+
 
     // dataSource:FormGroup[];
-
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+        .pipe(
+            map(result => result.matches)
+        );
     constructor(private fb: FormBuilder,
                 private readonly mTestService: TestService,
                 // private readonly matDialogRef: MatDialogRef<AddTestComponent>,
                 private readonly mStudentService: StudentService,
                 private readonly router: Router,
                 private readonly matSnackbar: MatSnackBar,
+                private breakpointObserver: BreakpointObserver,
                 private readonly testService: TestService) {
         this.class$ = this.mTestService.getClass()
         this.form = this.fb.group({
             testName: ['', [Validators.required, Validators.maxLength(50)]],
             date: ['', Validators.required],
-            batchName: ['', [Validators.required, Validators.maxLength(50)]],
+            batchName: [this.classSelected, [Validators.required, Validators.maxLength(50)]],
             students: this.fb.array([]),
         });
         // this.dataSource = this.studentsFormArray.controls.map(studentFormGroup => studentFormGroup.value);
@@ -135,7 +142,9 @@ export class AddTestComponent implements OnInit {
             name: [{value: student.studentName, disabled: true}, Validators.required],
             totalMarks: [ this.totalMarks.value, Validators.required],
             // rank: [''],
-            correct: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
+            correct: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
+            rightAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
+            wrongAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
         });
 
         this.studentsFormArray.push(studentFormGroup);
@@ -173,6 +182,10 @@ export class AddTestComponent implements OnInit {
     onBatchSelect($event: MatSelectChange) {
         // this.names=[]
         this.batschSelected = $event.value
+        const className = $event.value
+        // this.studentData =[]
+        localStorage.setItem('aimClass',className)
+
         this.students$ = this.mStudentService.fetchStudentsFromBatch(this.batschSelected!)
         this.studentsFormArray.clear()
         this.mStudentService.fetchStudentsFromBatch(this.batschSelected!).pipe(
@@ -181,7 +194,9 @@ export class AddTestComponent implements OnInit {
                         "studentName": s.studentName,
                         "rollNo": s.rollNo,
                         "totalMarks": this.totalMarks?.value,
-                        "correct": ""
+                        "correct": "",
+                        "rightAnswers": "",
+                        "wrongAnswers": "",
                     }
                 }
             ))

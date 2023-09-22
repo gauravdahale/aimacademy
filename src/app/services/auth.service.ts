@@ -32,7 +32,7 @@ export class AuthService {
         console.log('Something went wrong:', FirebaseErrors.Parse(err.message));
       });
       if (userCredential && userCredential.user) {
-        console.log('Login Successful')
+        console.log('Login Successfull')
         const user = userCredential.user;
         localStorage.setItem('aimuser', JSON.stringify(user));
         localStorage.setItem('uid', user.uid);

@@ -3,12 +3,13 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {arrayUnion, collection, collectionData, doc, Firestore, query, setDoc, where} from "@angular/fire/firestore";
 import {Observable} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
-import {AttendanceItem} from "../interfaces/Attendance.model";
+import {AttendanceItem} from "../../interfaces/Attendance.model";
 import {map} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatSelectChange} from "@angular/material/select";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-add-attendance',
@@ -25,6 +26,7 @@ export class AddAttendanceComponent {
 
     constructor(private readonly mFirestore: Firestore,
                 private readonly mSnackBar: MatSnackBar,
+                private readonly mDialogRef:MatDialogRef<AddAttendanceComponent>,
                 private firestore: AngularFirestore,
                 private readonly mDatePipe: DatePipe) {
         let batchRef = collection(this.mFirestore, 'class')
@@ -32,7 +34,7 @@ export class AddAttendanceComponent {
     }
 
     search() {
-this.checkexistingAttendance()
+        this.checkexistingAttendance()
         // let mRef = collection(this.mFirestore, 'students')
         // // @ts-ignore
         // let mQuery = query(mRef, where('batchName', '==', this.batchSelected))
@@ -61,6 +63,7 @@ this.checkexistingAttendance()
             this.attendanceData.forEach(it => {
                 let StudentRef = this.firestore.firestore.doc(`studentAttendance/${it.rollNo}`)
                 it.className = this.batchSelected
+                it.status= it.status?'Present':'Absent'
                 batch.set(StudentRef, {'attendance': arrayUnion({...it, ...{date: d}})}, {merge: true})
                 // setDoc(StudentRef, {'attendance': arrayUnion({...it,...{date:d}})},)
             })
@@ -73,7 +76,7 @@ this.checkexistingAttendance()
                 }).then(() => {
 
                     this.mSnackBar.open('Attendance added successfully')._dismissAfter(3000)
-
+this.mDialogRef.close()
                 })
             })
 
@@ -92,13 +95,13 @@ this.checkexistingAttendance()
     }
 
     private checkexistingAttendance() {
-        this.attendanceData =[]
+        this.attendanceData = []
         this.dataSource.data = this.attendanceData
 
         console.log('checkexisting Attendance Called! ')
         let d = this.mDatePipe.transform(this.date, 'dd-MM-yyyy')
 
-      if(this.batchSelected!='' && this.date!=null)  {
+        if (this.batchSelected != '' && this.date != null) {
             this.firestore.doc<any>(`attendance/${this.batchSelected}/attendance/${d}`)
                 .valueChanges()
 
@@ -121,16 +124,21 @@ this.checkexistingAttendance()
                             this.dataSource.data = res
 
                         })
-                    }
-                   else  {
+                    } else {
                         // alert(JSON.stringify(res))
                         // console.log(data)
                         this.attendanceData = res['attendance'] as AttendanceItem[]
                         this.dataSource.data = this.attendanceData
                     }
                 })
-        }
+        } else this.mSnackBar.open('Please select a batch first')._dismissAfter(2500)
+    }
 
-else this.mSnackBar.open('Please select a batch first')
+    getStatus(status: Boolean) {
+        return status ? 'P' : 'A'
+    }
+
+    isPresent(status: boolean) {
+        return status ? 'Present' : 'Absent'
     }
 }

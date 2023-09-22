@@ -3,32 +3,35 @@
     <button class="m-2" mat-raised-button color="primary" (click)="OpenSendMessage()" >Send Message</button>
     <button class="m-2" mat-raised-button color="primary" (click)="SendImageMessage()" >Send Message with Image</button>
 
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.title }}</mat-cell>
-    </ng-container>
+    <div style="overflow-x: auto;">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+                <mat-cell *matCellDef="let message"> {{ message.title }} </mat-cell>
+            </ng-container>
 
-    <ng-container matColumnDef="message">
-        <mat-header-cell *matHeaderCellDef>Message</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.message }}</mat-cell>
-    </ng-container>
+            <ng-container matColumnDef="message">
+                <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+                <mat-cell *matCellDef="let message"> {{ message.message }} </mat-cell>
+            </ng-container>
 
-    <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.date.toDate() |date:'dd-MM-yyyy hh:mm:aa' }}</mat-cell>
-    </ng-container>
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let message"> {{ message.date.toDate() | date:'dd-MM-yyyy hh:mm:aa' }} </mat-cell>
+            </ng-container>
 
-    <ng-container matColumnDef="type">
-        <mat-header-cell *matHeaderCellDef>Message to</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.type }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="messageType">
-        <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.messageType }}</mat-cell>
-    </ng-container>
+            <ng-container matColumnDef="type" class="desktop">
+                <mat-header-cell *matHeaderCellDef> Message to </mat-header-cell>
+                <mat-cell *matCellDef="let message"> {{ message.type }} </mat-cell>
+            </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+            <ng-container matColumnDef="messageType" class="desktop">
+                <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+                <mat-cell *matCellDef="let message"> {{ message.messageType }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
 </div>

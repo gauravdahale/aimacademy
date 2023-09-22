@@ -5,6 +5,8 @@ import {Observable, Subject, takeUntil} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {AddAttendanceComponent} from "../add-attendance/add-attendance.component";
+import {StudentAttendance} from "../../model";
+import {ViewAttendanceComponent} from "../student-attendance/view-attendance/view-attendance.component";
 
 @Component({
   selector: 'app-attendance-list',
@@ -12,7 +14,7 @@ import {AddAttendanceComponent} from "../add-attendance/add-attendance.component
   styleUrls: ['./attendance-list.component.scss']
 })
 export class AttendanceListComponent  implements OnDestroy{
-  displayedColumns: string[] = ['position', 'className', 'date', 'present','absent','total'];
+  displayedColumns: string[] = ['position', 'className', 'date', 'present','absent','total','action'];
   dataSource =new MatTableDataSource<any>()
   data:any
   destroyed$ = new Subject()
@@ -56,8 +58,16 @@ this.batch$=this.mFirestore.collection('class').valueChanges()
 
   AddAttendance() {
     this.mDialog.open(AddAttendanceComponent,{
-width:'80%',
+width:'100%',
       height:'80%'
+    })
+  }
+
+  viewAttendance(record:StudentAttendance) {
+    this.mDialog.open(ViewAttendanceComponent,{
+      width:'100%',
+      height:'80%',
+      data:record
     })
   }
 }

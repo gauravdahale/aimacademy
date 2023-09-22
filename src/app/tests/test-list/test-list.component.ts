@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Subject, takeUntil} from "rxjs";
+import {Component, ViewChild} from '@angular/core';
+import {Observable, Subject, takeUntil} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -14,31 +14,45 @@ import * as jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable';
 import 'jspdf-autotable'
 import {DatePipe} from "@angular/common";
+import {MatSelectChange} from "@angular/material/select";
+import {Student} from "../../interfaces/Student";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 @Component({
     selector: 'app-test-list',
     templateUrl: './test-list.component.html',
     styleUrls: ['./test-list.component.scss']
 })
 export class TestListComponent {
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
+    classSelected=localStorage.getItem('aimClass') || '';
+
     _destroyed$ = new Subject()
-    displayedColumns: string[] = ['position', 'testName', 'testDate', 'batchName', 'action'];
+    displayedColumns: string[] = ['position', 'testName', 'batchName','testDate', 'action'];
     data: TestInfo[] = []
     datasource: MatTableDataSource<any>
+    _classes$: Observable<any>;
+
 
     constructor(private marDialog: MatDialog,
                 private matSnackBar: MatSnackBar,
                 private readonly router:Router,
                 private  datePipe:DatePipe,
+                private readonly mFirestore:AngularFirestore,
                 private readonly mTestService:TestService) {
         this.datasource = new MatTableDataSource<any>(this.data)
+        this._classes$ = this.mFirestore.collection('class', ref => ref.orderBy('className', 'asc')).valueChanges({idField: 'id'})
+
     }
 
     ngOnInit(): void {
-        this.mTestService.fetchTests().pipe(takeUntil(this._destroyed$))
+        this.mTestService.fetchTestsByClass(this.classSelected).pipe(takeUntil(this._destroyed$))
             .subscribe(res => {
                 this.data = res
                 this.datasource = new MatTableDataSource<any>(this.data)
-
+                this.datasource.paginator =this.paginator
+                this.datasource.sort =this.sort
             })
     }
 
@@ -66,12 +80,12 @@ export class TestListComponent {
         // Add test name and date on top
         doc.setFontSize(12);
         doc.text( element.testName, 20, 10);
-        doc.text('AIMS COACHING CLASSES', centerX, 10, { align: 'center' });
+        doc.text('AIM COACHING CLASSES', centerX, 10, { align: 'center' });
         doc.text('Date: ' +this.datePipe.transform( element.date.toDate(),"dd-MM-yyyy"),  rightX, 10, { align: 'right' });
 
         const students = element.students as any[]
-        const header = [['Roll No', 'Name', 'Total Marks','Rank', 'Correct']];
-        const rows = students.map(student => [student.rollNo, student.name, student.totalMarks,student.rank, student.correct]);
+        const header = [['Roll No', 'Name', 'Total Marks','Rank', 'Marks Obtained','Correct','Incorrect']];
+        const rows = students.map(student => [student.rollNo, student.name, student.totalMarks,student.rank, student.correct,student.rightAnswers,student.wrongAnswers]);
 
         (doc as any).autoTable({
             head: header,
@@ -102,5 +116,30 @@ export class TestListComponent {
     edit(id:string) {
         this.router.navigate(['/edit-test', id]);
 
+    }
+
+    onClassChange($event: MatSelectChange) {
+        const className = $event.value
+        // this.studentData =[]
+        localStorage.setItem('aimClass',className)
+
+        this.matSnackBar.open(className +' selected')._dismissAfter(3000)
+        this.mTestService.fetchTestsByClass(className).pipe(takeUntil(this._destroyed$))
+            .subscribe(res => {
+                this.data = res
+                this.datasource = new MatTableDataSource<any>(this.data)
+this.datasource.paginator =this.paginator
+this.datasource.sort =this.sort
+            })
+
+
+        // this.mStudentService.fetchStudentsByClass(className).pipe(takeUntil(this._destroyed$)).subscribe(res => {
+
+            // this.studentData = res
+            // this.dataSource = new MatTableDataSource<Student>()
+            // this.dataSource.data = this.studentData
+            // this.dataSource.paginator =this.paginator
+            // this.dataSource.sort =this.sort
+        // })
     }
 }

@@ -22,6 +22,10 @@ export class TestService {
 
     return this.mFirestore.collection<TestInfo>('tests',ref => ref.orderBy('date',"desc")).valueChanges({idField:'id'})
   }
+  fetchTestsByClass(className:string) {
+
+    return this.mFirestore.collection<TestInfo>('tests',ref => ref.orderBy('date',"desc").where('batchName','==',className)).valueChanges({idField:'id'})
+  }
   getClass(){
     return this.mFirestore.collection('class').valueChanges().pipe(shareReplay(1))
   }
@@ -43,7 +47,7 @@ export class TestService {
         'totalMarks':student.totalMarks,
         "result": student.correct
       };
-      batch.update(studentDocRef, {   [`results.${id}`]: result });
+      batch.set(studentDocRef, {   [`results.${id}`]: result },{merge:true});
     }
 
     return batch.commit()

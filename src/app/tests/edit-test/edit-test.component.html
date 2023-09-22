@@ -12,18 +12,32 @@
             <h2>Students</h2>
             <div formArrayName="students">
 
-            <table>
+                <table style="overflow-x:auto;"  class="handset-table">
                 <tr>
                     <th>Name</th>
                     <th>RollNo</th>
-                    <th>Total</th>
                     <th>Marks obtained</th>
+                    <th>Correct</th>
+                    <th>Incorrect</th>
+                    <th>Total</th>
                 </tr>
 
                 <tr *ngFor="let studentGroup of studentFormArray?.controls; let i = index" [formGroupName]="i">
                     <td>{{studentGroup.get('name')?.value!}}</td>
                     <td>{{ studentGroup.get('rollNo')?.value}}</td>
                     <td>{{ studentGroup.get('totalMarks')?.value }}</td>
+                    <td>   <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                        <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+
+                        <div class="error-message" *ngIf="studentGroup.get('rightAnswers')?.hasError('notANumber')">
+                            Marks should be an integer
+                        </div></td>
+                    <td>   <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                        <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+
+                        <div class="error-message" *ngIf="studentGroup.get('wrongAnswers')?.hasError('notANumber')">
+                            Marks should be an integer
+                        </div></td>
                     <td>
                         <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
                         <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
@@ -38,7 +52,7 @@
 
         </form>
     </mat-card-content>
-<prettyjson [obj]="editForm.getRawValue()"> </prettyjson>
+<!--<prettyjson [obj]="editForm.getRawValue()"> </prettyjson>-->
     <div class="text-center m-3">
         <button mat-raised-button color="primary" type="submit" (click)="saveChanges()">Save</button>&nbsp;
         <button mat-raised-button color="warn" routerLink="/tests">Cancel</button>

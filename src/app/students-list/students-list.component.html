@@ -1,11 +1,18 @@
-<div class="d-flex justify-content-end m-3">
-    <button mat-raised-button color="accent" (click)="addStudent()">Add Student</button>
+<div class="d-flex justify-content-between m-3">
+    <mat-form-field appearance="outline" class="col-sm-12 col-md-4 mt-3">
+        <mat-label>Select Class</mat-label>
+        <mat-select (selectionChange)="onClassChange($event)" [ngModel]="classSelected" >
+            <mat-option *ngFor="let c of _classes$|async" [value]="c.className" >{{c.className}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+     <button mat-raised-button color="accent" (click)="addStudent()">Add Student</button>
 </div>
 <div>
 
 </div>
 
-<section class="container">
+<section class="example-container  mat-elevation-z8" tabindex="0">
+
     <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -22,6 +29,11 @@
         <ng-container matColumnDef="batchName">
             <th mat-header-cell *matHeaderCellDef> Batch Name</th>
             <td mat-cell *matCellDef="let element"> {{element.batchName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rollNo">
+            <th mat-header-cell *matHeaderCellDef> Roll No</th>
+            <td mat-cell *matCellDef="let element"> {{element.rollNo}}</td>
         </ng-container>
 
 
@@ -42,6 +54,10 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
-
+    <mat-paginator [length]="dataSource.data.length"
+                   [pageSize]="50"
+                   [pageSizeOptions]="[50, 100, 200, 1000]"
+                   aria-label="Select page">
+    </mat-paginator>
 
 </section>

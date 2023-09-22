@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {MatDialog} from "@angular/material/dialog";
@@ -14,8 +14,12 @@ import {SendImageMessageComponent} from "./send-image-message/send-image-message
 export class MessagesComponent implements OnInit {
     messages: Message[] = [];
     dataSource: MatTableDataSource<Message>;
-    displayedColumns: string[] = ['title', 'message', 'date', 'type','messageType'];
-
+    // displayedColumns: string[] = ['title', 'message', 'date', 'type','messageType'];
+    displayedColumns = window.innerWidth > 600 ? ['title', 'message', 'date', 'type', 'messageType'] : ['title', 'message', 'date','type'];
+    @HostListener('window:resize', ['$event'])
+    onResize(event: { target: { innerWidth: number; }; }) {
+        this.displayedColumns = event.target.innerWidth > 600 ? ['title', 'message', 'date', 'type', 'messageType'] : ['title', 'message', 'date','type'];
+    }
     constructor(private firestore: AngularFirestore,
                 private mDialog: MatDialog) {
         this.dataSource = new MatTableDataSource<any>(this.messages)

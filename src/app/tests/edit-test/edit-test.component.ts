@@ -58,7 +58,9 @@ export class EditTestComponent implements OnInit {
             rollNo: student.rollNo,
             name: student.name,
             totalMarks: student.totalMarks,
-            correct: student.correct
+            correct: student.correct,
+            rightAnswers: student.rightAnswers,
+            wrongAnswers: student.wrongAnswers
           }));
         });
       }

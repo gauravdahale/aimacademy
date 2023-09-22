@@ -36,7 +36,7 @@
 
         <mat-form-field appearance="outline" class="col-md-6">
             <mat-label>
-                Select Batch
+                Select Class
             </mat-label>
             <mat-select formControlName="batchName">
                 <mat-option *ngFor="let b of (batch$|async)" [value]="b.className">{{b.className}}</mat-option>
@@ -68,16 +68,16 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="col-md-6">
-            <mat-label>
-                College Name
-            </mat-label>
-            <input matInput formControlName="collegeName">
-            <mat-error *ngIf="CollegeNAme.invalid  &&  (CollegeNAme.touched || CollegeNAme.dirty)">
-                <mat-error style="color: red;" *ngIf="CollegeNAme.errors?.required">*It is Required.</mat-error>
-                <mat-error style="color: red;" *ngIf="CollegeNAme.errors?.pattern">*Enter Only Character.</mat-error>
-            </mat-error>
-        </mat-form-field>
+<!--        <mat-form-field appearance="outline" class="col-md-6">-->
+<!--            <mat-label>-->
+<!--                College Name-->
+<!--            </mat-label>-->
+<!--            <input matInput formControlName="collegeName">-->
+<!--            <mat-error *ngIf="CollegeNAme.invalid  &&  (CollegeNAme.touched || CollegeNAme.dirty)">-->
+<!--                <mat-error style="color: red;" *ngIf="CollegeNAme.errors?.required">*It is Required.</mat-error>-->
+<!--                <mat-error style="color: red;" *ngIf="CollegeNAme.errors?.pattern">*Enter Only Character.</mat-error>-->
+<!--            </mat-error>-->
+<!--        </mat-form-field>-->
 
 
 

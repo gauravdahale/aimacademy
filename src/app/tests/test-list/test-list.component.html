@@ -1,9 +1,15 @@
-<div class="d-flex justify-content-end">
-        <button mat-raised-button color="primary" class="mt-3 mb-3" style="margin-right: 100px" (click)="addTest()"> <mat-icon>add</mat-icon>Add</button>
+<div class="d-flex justify-content-between container">
+    <mat-form-field appearance="outline" class="col-sm-12 col-md-4 mt-3">
+        <mat-label>Select Class</mat-label>
+        <mat-select (selectionChange)="onClassChange($event)" [ngModel]="classSelected" >
+            <mat-option *ngFor="let c of _classes$|async" [value]="c.className" >{{c.className}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+        <button mat-raised-button color="primary" class="mt-3 mb-3"  (click)="addTest()"> <mat-icon>add</mat-icon>Add</button>
 </div>
 
-<section class="container mt-5">
-    <table mat-table [dataSource]="datasource" class="mat-elevation-z8">
+<section class="container mt-5 example-container">
+    <table mat-table [dataSource]="datasource" class="mat-elevation-z8" matSort>
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -44,4 +50,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         <!-- Symbol Column -->
     </table>
+    <mat-paginator [pageSizeOptions]="[25, 50, 100, 500]" aria-label="Select page of students"></mat-paginator>
+
 </section>

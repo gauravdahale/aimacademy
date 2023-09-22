@@ -34,17 +34,16 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import {initializeDialogService} from "../main";
-import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {StudentsListComponent} from './students-list/students-list.component';
 import {AddStudentComponent} from './add-student/add-student.component';
-import {AddAttendanceComponent} from './add-attendance/add-attendance.component';
+import {AddAttendanceComponent} from './attendance/add-attendance/add-attendance.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatRippleModule} from "@angular/material/core";
 import {CustomDateAdapter, MY_DATE_FORMATS} from "./CustomDateAdapter";
 import {PrettyJsonModule} from "angular2-prettyjson";
 import {DatePipe, NgOptimizedImage} from "@angular/common";
-import {AttendanceListComponent} from './attendance-list/attendance-list.component';
+import {AttendanceListComponent} from './attendance/attendance-list/attendance-list.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from "./services/auth.guard";
 import { UsersListComponent } from './users/users-list/users-list.component';
@@ -56,7 +55,7 @@ import { AddTestComponent } from './tests/add-test/add-test.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { EditTestComponent } from './tests/edit-test/edit-test.component';
 import { MessagesComponent } from './messages/messages.component';
-import { StudentAttendanceComponent } from './student-attendance/student-attendance.component';
+import { StudentAttendanceComponent } from './attendance/student-attendance/student-attendance.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { AddMessageComponent } from './messages/add-message/add-message.component';
@@ -70,6 +69,10 @@ import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.compo
 import {HttpClientModule} from "@angular/common/http";
 import { SliderListComponent } from './slider-list/slider-list.component';
 import { AddSliderComponent } from './slider-list/add-slider/add-slider.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { HomeComponent } from './home/home.component';
+import { HomeCardComponent } from './home-card/home-card.component';
+import { ViewAttendanceComponent } from './attendance/student-attendance/view-attendance/view-attendance.component';
 
 @NgModule({
     declarations: [
@@ -99,6 +102,9 @@ import { AddSliderComponent } from './slider-list/add-slider/add-slider.componen
         BulkDataUploadComponent,
         SliderListComponent,
         AddSliderComponent,
+        HomeComponent,
+        HomeCardComponent,
+        ViewAttendanceComponent,
     ],
     imports: [
         BrowserModule,
@@ -141,6 +147,8 @@ import { AddSliderComponent } from './slider-list/add-slider/add-slider.componen
         MatProgressBarModule,
         MaterialFileInputModule,
         NgOptimizedImage,
+        MatSlideToggleModule,
+        MatRippleModule,
     ],
     providers: [
         ScreenTrackingService, UserTrackingService, {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

@@ -10,6 +10,7 @@ export interface TestInfo {
     batchName: string;
     students: StudentInfo[];
     totalMarks:string
+
     createdAt:Date
 }
 
@@ -18,6 +19,8 @@ export interface StudentInfo {
     name: string;
     totalMarks: string;
     correct: string;
+    rightAnswers:string
+    wrongAnswers:string
     rank?:number;
 }
 export  interface  StudentAttendance{

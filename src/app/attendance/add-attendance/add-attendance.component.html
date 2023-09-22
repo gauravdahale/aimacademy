@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container-fluid mt-2">
     <h1>Add Attendance</h1>
     <div class="row">
         <mat-form-field class="col-md-4 col-sm-4">
@@ -24,14 +24,14 @@
         </div>
     </div>
     <section>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 firenase inibbase init firebas elogse logoutfrirebase loginy">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> No.</th>
+                <th mat-header-cell *matHeaderCellDef>No</th>
                 <td mat-cell *matCellDef="let element;let i =index"> {{i + 1}} </td>
             </ng-container>
 
@@ -49,12 +49,19 @@
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Action</th>
+                <th mat-header-cell *matHeaderCellDef><mat-icon>check</mat-icon></th>
                 <td mat-cell *matCellDef="let element">
-                    <mat-radio-group aria-label="Select an option" [(ngModel)]="element.status">
-                        <mat-radio-button value="Present">Present</mat-radio-button>
-                        <mat-radio-button value="Absent">Absent</mat-radio-button>
-                    </mat-radio-group>
+                    <mat-slide-toggle
+                            color="primary"
+                            class="example-margin"
+                            [(ngModel)]="element.status"
+                            >
+                    <span  >{{getStatus(element.status)}}</span>
+                    </mat-slide-toggle>
+<!--                    <mat-radio-group aria-label="Select an option" [(ngModel)]="element.status">-->
+<!--                        <mat-radio-button value="Present">Present</mat-radio-button>-->
+<!--                        <mat-radio-button value="Absent">Absent</mat-radio-button>-->
+<!--                    </mat-radio-group>-->
                 </td>
             </ng-container>
 

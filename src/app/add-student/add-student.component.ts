@@ -50,7 +50,7 @@ export class AddStudentComponent implements OnInit {
             fathersName: new FormControl(this.data?.fathersName, Validators.required),
             fathersNumber: new FormControl(this.data?.fathersNumber, Validators.required),
             batchName: new FormControl(this.data?.batchName, Validators.required),
-            collegeName: new FormControl(this.data?.collegeName, Validators.required),
+            // collegeName: new FormControl(this.data?.collegeName, Validators.required),
             // city: new FormControl(this.data?.city, Validators.required),
         })
     }

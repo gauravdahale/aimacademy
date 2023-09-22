@@ -31,6 +31,9 @@
 
 
 <!--<prettyjson [obj]="mData"></prettyjson>-->
+    <mat-toolbar color="accent" class=" d-flex justify-content-end">
+        <button mat-icon-button color="primary" (click)="printPDF()"><mat-icon>download</mat-icon></button>
+    </mat-toolbar>
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- Date Column -->
     <ng-container matColumnDef="date">
@@ -61,6 +64,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Roll No</mat-header-cell>
         <mat-cell *matCellDef="let record">{{ record.rollNo }}</mat-cell>
     </ng-container>
+
+
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
