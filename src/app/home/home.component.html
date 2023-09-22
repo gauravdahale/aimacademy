@@ -1,0 +1,20 @@
+<div class="container">
+    <mat-form-field appearance="outline" class="col-sm-12 col-md-4 mt-3">
+        <mat-label>Select Class</mat-label>
+       <mat-select (selectionChange)="onClassChange($event)" [ngModel]="classSelected" >
+           <mat-option *ngFor="let c of _classes$|async" [value]="c.className" >{{c.className}}</mat-option>
+       </mat-select>
+    </mat-form-field>
+
+    <div class="card-container">
+        <div class="row">
+        <ng-container *ngFor="let card of cards"  >
+<div class=" col-6 col-md-6  mb-2" >
+       <app-home-card  [title]="card.title" [icon]="card.icon" [routerLink]="card.url" ></app-home-card>
+</div>
+        </ng-container>
+        </div>
+
+    </div>
+
+</div>
