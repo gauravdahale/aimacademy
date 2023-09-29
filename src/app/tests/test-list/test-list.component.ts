@@ -68,11 +68,22 @@ export class TestListComponent {
     }
 
     printPDF(element:TestInfo) {
-// Sort the student array by 'correct' field in descending order
+// Sort the student array by 'correct' field in descending order OLD
         const sortedStudents = element.students.sort((a, b) => +b.correct - +a.correct);
+        // sortedStudents.forEach((student, index) => {
+        //     student.rank = index + 1; // Adding 1 to make the rank start from 1
+        // });
+        //
+        let currentRank = 1; //? Initialize the rank AI GENERATED
         sortedStudents.forEach((student, index) => {
-            student.rank = index + 1; // Adding 1 to make the rank start from 1
+            if (index > 0 && +student.correct !== +sortedStudents[index - 1].correct) {
+                // If the current student's marks are not equal to the previous student's marks, increment the rank
+                currentRank++;
+            }
+            student.rank = currentRank;
         });
+
+
         const doc = new jsPDF.default();  // Use '.default' for jsPDF typings
         const centerX = doc.internal.pageSize.width / 2;
         const rightX = doc.internal.pageSize.width - 20;
