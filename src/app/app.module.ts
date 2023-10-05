@@ -73,6 +73,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { HomeComponent } from './home/home.component';
 import { HomeCardComponent } from './home-card/home-card.component';
 import { ViewAttendanceComponent } from './attendance/student-attendance/view-attendance/view-attendance.component';
+import { EditUsersComponent } from './users/edit-users/edit-users.component';
 
 @NgModule({
     declarations: [
@@ -105,6 +106,7 @@ import { ViewAttendanceComponent } from './attendance/student-attendance/view-at
         HomeComponent,
         HomeCardComponent,
         ViewAttendanceComponent,
+        EditUsersComponent,
     ],
     imports: [
         BrowserModule,

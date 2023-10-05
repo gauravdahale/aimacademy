@@ -2,16 +2,19 @@
     <mat-card-header>
         <mat-card-title>{{testDetails?.testName}}</mat-card-title>
         <mat-card-subtitle> {{(testDetails?.date)?.toDate()|date:'dd-MM-yyyy'}} </mat-card-subtitle>
+
     </mat-card-header>
 
     <mat-card-content>
+        <span class="green">Positive: {{testDetails?.positive}}</span>
+
+      &nbsp;  <span class="red">Negative: {{testDetails?.negative}}</span>
         <hr>
         <form [formGroup]="editForm" >
 
             <!-- Students Section -->
             <h2>Students</h2>
             <div formArrayName="students">
-
                 <table style="overflow-x:auto;"  class="handset-table">
                 <tr>
                     <th>Name</th>

@@ -1,17 +1,17 @@
-
 import firebase from "firebase/compat";
 import Timestamp = firebase.firestore.Timestamp;
 
 
 export interface TestInfo {
-    id:string,
+    id: string,
     testName: string;
-    date:Timestamp
+    date: Timestamp
     batchName: string;
     students: StudentInfo[];
-    totalMarks:string
-
-    createdAt:Date
+    totalMarks: string
+    positive: string
+    negative: string
+    createdAt: Date
 }
 
 export interface StudentInfo {
@@ -19,14 +19,15 @@ export interface StudentInfo {
     name: string;
     totalMarks: string;
     correct: string;
-    rightAnswers:string
-    wrongAnswers:string
-    rank?:number;
+    rightAnswers: string
+    wrongAnswers: string
+    rank?: number;
 }
-export  interface  StudentAttendance{
-    className:string,
-    date:string,
-    rollNo:string,
-    status:string,
-    studentName:string
+
+export interface StudentAttendance {
+    className: string,
+    date: string,
+    rollNo: string,
+    status: string,
+    studentName: string
 }

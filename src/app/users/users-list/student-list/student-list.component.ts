@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {needConfirmation} from "../../../confirm-dialog/confirm-dialog.decorator";
 import {AddClassComponent} from "../../../add-class/add-class.component";
+import {EditUsersComponent} from "../../edit-users/edit-users.component";
 
 @Component({
   selector: 'app-student-list',
@@ -37,7 +38,7 @@ export class StudentListComponent {
 
   @needConfirmation()
   edit(data: any) {
-    this.marDialog.open(AddClassComponent,
+    this.marDialog.open(EditUsersComponent,
         {
           width: '600px',
           data:data

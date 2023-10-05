@@ -31,7 +31,8 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 })
 export class AddTestComponent implements OnInit {
     displayedColumns: string[] = ['name', 'rollNo', 'total', 'correct'];
-
+    positive = new FormControl(1, Validators.required);
+    negative = new FormControl(1, Validators.required);
     form!: FormGroup;
     class$: Observable<any>
     totalMarks = new FormControl('100')
@@ -42,7 +43,7 @@ export class AddTestComponent implements OnInit {
     names: string[] = ['John', 'Jane', 'Alice', 'Bob', 'Charlie']; // Sample options
     filteredNamesArray: Observable<string[]>[] = [];
     batschSelected: string | null = null
-    classSelected=localStorage.getItem('aimClass') || '';
+    classSelected = localStorage.getItem('aimClass') || '';
 
 
     // dataSource:FormGroup[];
@@ -50,6 +51,7 @@ export class AddTestComponent implements OnInit {
         .pipe(
             map(result => result.matches)
         );
+
     constructor(private fb: FormBuilder,
                 private readonly mTestService: TestService,
                 // private readonly matDialogRef: MatDialogRef<AddTestComponent>,
@@ -64,6 +66,8 @@ export class AddTestComponent implements OnInit {
             date: ['', Validators.required],
             batchName: [this.classSelected, [Validators.required, Validators.maxLength(50)]],
             students: this.fb.array([]),
+            positive: this.positive,
+            negative: this.negative
         });
         // this.dataSource = this.studentsFormArray.controls.map(studentFormGroup => studentFormGroup.value);
 
@@ -83,6 +87,30 @@ export class AddTestComponent implements OnInit {
     };
 
     ngOnInit() {
+        this.batschSelected = localStorage.getItem('aimClass')
+        this.students$ = this.mStudentService.fetchStudentsFromBatch(this.batschSelected!)
+        this.studentsFormArray.clear()
+        this.mStudentService.fetchStudentsFromBatch(this.batschSelected!).pipe(
+            map(x => x.map(s => {
+                    return {
+                        "studentName": s.studentName,
+                        "rollNo": s.rollNo,
+                        "totalMarks": this.totalMarks?.value,
+                        "correct": "",
+                        "rightAnswers": "",
+                        "wrongAnswers": "",
+                    }
+                }
+            ))
+        ).subscribe(res => {
+            this.studentsFormArray.clear()
+            res.forEach(it => {
+                this.addStudent2(it)
+            })
+
+
+            // alert(JSON.stringify(res))
+        })
 
 
         // this.studentsFormArray.controls.forEach((studentGroup, index) => {
@@ -115,9 +143,7 @@ export class AddTestComponent implements OnInit {
         const filterValue = value.toLowerCase();
         let x: string[] = this.names.filter(name => name.toLowerCase().includes(filterValue))
         console.log('intp Filter', x)
-
         return x
-
     }
 
     addStudent() {
@@ -140,9 +166,9 @@ export class AddTestComponent implements OnInit {
         const studentFormGroup = this.fb.group({
             rollNo: [{value: student.rollNo, disabled: true}, Validators.required],
             name: [{value: student.studentName, disabled: true}, Validators.required],
-            totalMarks: [ this.totalMarks.value, Validators.required],
+            totalMarks: [this.totalMarks.value, Validators.required],
             // rank: [''],
-            correct: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
+            correct: [0, [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
             rightAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
             wrongAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
         });
@@ -160,7 +186,7 @@ export class AddTestComponent implements OnInit {
         if (this.form.valid) {
             this.testService.addTest(this.form.getRawValue() as TestInfo).then((re) => {
 
-                this.testService.addTestMarksByStudent(this.form.getRawValue() as TestInfo,re.id!).then(()=>{
+                this.testService.addTestMarksByStudent(this.form.getRawValue() as TestInfo, re.id!).then(() => {
 
                     // this.matDialogRef.close()
 
@@ -169,7 +195,7 @@ export class AddTestComponent implements OnInit {
             })
             // Perform your form submission logic here
 
-            
+
         }
     }
 
@@ -184,7 +210,7 @@ export class AddTestComponent implements OnInit {
         this.batschSelected = $event.value
         const className = $event.value
         // this.studentData =[]
-        localStorage.setItem('aimClass',className)
+        localStorage.setItem('aimClass', className)
 
         this.students$ = this.mStudentService.fetchStudentsFromBatch(this.batschSelected!)
         this.studentsFormArray.clear()
@@ -231,6 +257,36 @@ export class AddTestComponent implements OnInit {
         }
     }
 
+    RightOnInputChanged(control: AbstractControl | null, i: number): void {
+        if (control) {
+            control.markAsTouched(); // Mark the control as touched to trigger validation
+        }
+
+        // alert(`wrong ${i} ${c}`)
+        this.calculateTotalMarks(i)
+    }
+
+    WrongOnInputChanged(control: AbstractControl | null, i: number): void {
+        if (control) {
+            control.markAsTouched(); // Mark the control as touched to trigger validation
+        }
+        this.calculateTotalMarks(i)
+
+        // alert(`wrong ${i} ${c}`)
+    }
+
+    RightControl(i: number) {
+        return this.studentsFormArray.at(i).get('rightAnswers')
+    }
+
+    WrongControl(i: number) {
+        return this.studentsFormArray.at(i).get('wrongAnswers')
+    }
+
+    MarksObtained(i: number) {
+        return this.studentsFormArray.at(i).get('correct')
+    }
+
     // displayFn(user: string): string {
     //     return user && user ? user : '';
     // }
@@ -262,6 +318,15 @@ export class AddTestComponent implements OnInit {
         }
         return null;
     };
+
+    private calculateTotalMarks(i: number) {
+        let right = this.RightControl(i)?.value || 0
+        let wrong = this.WrongControl(i)?.value || 0
+        let positive = this.positive.value || 0
+        let negative = this.negative.value || 0
+        let obtained = (right * positive) - (wrong * negative)
+        this.MarksObtained(i)?.setValue(obtained)
+    }
 }
 
 // Custom validator function to ensure value is not greater than totalMarks

@@ -3,84 +3,108 @@
         <mat-card-title>Create Test</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+        <prettyjson [obj]="form.value"></prettyjson>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-           <mat-card>
-            <div class="row">
-                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
-                    <mat-label>Test Name</mat-label>
-                    <input matInput formControlName="testName" required>
-                    <mat-error *ngIf="form.get('testName')?.hasError('required')">Test Name is required</mat-error>
-                </mat-form-field>
+            <mat-card>
+                <div class="row">
+                    <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                        <mat-label>Test Name</mat-label>
+                        <input matInput formControlName="testName" required>
+                        <mat-error *ngIf="form.get('testName')?.hasError('required')">Test Name is required</mat-error>
+                    </mat-form-field>
 
 
-                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
-                    <mat-label>Date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="form.get('date')?.hasError('required')">Date is required</mat-error>
-                </mat-form-field>
+                    <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="form.get('date')?.hasError('required')">Date is required</mat-error>
+                    </mat-form-field>
 
-                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
-                    <mat-label>Batch Name</mat-label>
-                    <mat-select formControlName="batchName" (selectionChange)="onBatchSelect($event)">
-                        <mat-option *ngFor="let c of (class$|async)" [value]="c.className">{{c.className}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required</mat-error>
-                </mat-form-field>
+                    <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+                        <mat-label>Batch Name</mat-label>
+                        <mat-select formControlName="batchName" (selectionChange)="onBatchSelect($event)">
+                            <mat-option *ngFor="let c of (class$|async)"
+                                        [value]="c.className">{{c.className}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required
+                        </mat-error>
+                    </mat-form-field>
 
-                <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
-                    <mat-label>Total Marks</mat-label>
-                    <input matInput [formControl]="totalMarks" required (blur)="onBlur($event)">
-                    <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required</mat-error>
+                    <mat-form-field class="col-md-2 col-sm-12" appearance="outline">
+                        <mat-label>Total Marks</mat-label>
+                        <input matInput [formControl]="totalMarks" required (blur)="onBlur($event)">
+                        <mat-error *ngIf="form.get('batchName')?.hasError('required')">Batch Name is required
+                        </mat-error>
+                    </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-2">
+                    <mat-label>Positive Marking</mat-label>
+                    <input matInput [formControl]=positive>
                 </mat-form-field>
-            </div>
-           </mat-card>
+                <mat-form-field appearance="outline" class="col-md-2">
+                    <mat-label>Negative Marking</mat-label>
+                    <input matInput [formControl]=negative>
+                </mat-form-field>
+                </div>
+
+            </mat-card>
+
             <hr>
 
             <div formArrayName="students" *ngIf="batschSelected!=null">
-<!--                <button mat-raised-button color="primary" type="button" (click)="addStudent()">Add Student</button>-->
-                <table style="overflow-x:auto;"  class="handset-table">
+                <!--                <button mat-raised-button color="primary" type="button" (click)="addStudent()">Add Student</button>-->
+                <table style="overflow-x:auto;" class="handset-table">
                     <tr>
                         <th>RollNo</th>
                         <th>Name</th>
-                        <th>Marks obtained</th>
-                        <th>Correct</th>
-                        <th>Incorrect</th>
-                        <th>Total</th>
+                        <th class="right" >Correct</th>
+                        <th class="wrong" >Incorrect</th>
+                        <th class="correct">Marks obtained</th>
+                        <th >Total</th>
                     </tr>
                     <tr *ngFor="let studentGroup of studentsFormArray.controls; let i = index" [formGroupName]="i">
                         <td>{{ studentGroup.get('rollNo')?.value}}</td>
                         <td>{{studentGroup.get('name')?.value!}}</td>
-                        <td>
+
+                        <td class="correct" style="width: 50px;">
                             <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
-                            <input type="text" id="correct" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))" [style.width]="(isHandset$ | async) ? '50px' : '100px'">
-                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('marksGreaterThanTotal')">
+                            <input   type="text" id="rightAnswers" [formControlName]="'rightAnswers'"
+                                   (input)="RightOnInputChanged(studentGroup.get('rightAnswers'),i)"
+                                   [style.width]="(isHandset$ | async) ? '50px' : '100px'">
+                            <div class="error-message"
+                                 *ngIf="studentGroup.get('rightAnswers')?.hasError('marksGreaterThanTotal')">
                                 Marks cannot be greater than total marks
                             </div>
                             <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
                                 Marks should be an integer
                             </div>
                         </td>
-                        <td>
+                        <td style="width: 50px;">
                             <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
-                            <input type="text" id="rightAnswers" [formControlName]="'rightAnswers'" (input)="onInputChanged(studentGroup.get('rightAnswers'))" [style.width]="(isHandset$ | async) ? '50px' : '100px'">
-                            <div class="error-message" *ngIf="studentGroup.get('rightAnswers')?.hasError('marksGreaterThanTotal')">
+                            <input type="text" id="wrongAnswers" [formControlName]="'wrongAnswers'"
+                                   (input)="WrongOnInputChanged(studentGroup.get('wrongAnswers'),i)"
+                                   [style.width]="(isHandset$ | async) ? '50px' : '100px'">
+                            <div class="error-message"
+                                 *ngIf="studentGroup.get('wrongAnswers')?.hasError('marksGreaterThanTotal')">
                                 Marks cannot be greater than total marks
                             </div>
                             <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
                                 Marks should be an integer
                             </div>
                         </td>
-                        <td>
-                            <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
-                            <input type="text" id="wrongAnswers" [formControlName]="'wrongAnswers'" (input)="onInputChanged(studentGroup.get('wrongAnswers'))" [style.width]="(isHandset$ | async) ? '50px' : '100px'">
-                            <div class="error-message" *ngIf="studentGroup.get('wrongAnswers')?.hasError('marksGreaterThanTotal')">
-                                Marks cannot be greater than total marks
-                            </div>
-                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
-                                Marks should be an integer
-                            </div>
+                        <td style="width: 50px;">
+                            {{studentGroup.get('correct')?.value}}
+<!--                            <input type="text" id="correct" [formControlName]="'correct'"-->
+<!--                                   (input)="onInputChanged(studentGroup.get('correct'))"-->
+<!--                                   [style.width]="(isHandset$ | async) ? '50px' : '100px'">-->
+<!--                            <div class="error-message"-->
+<!--                                 *ngIf="studentGroup.get('correct')?.hasError('marksGreaterThanTotal')">-->
+<!--                                Marks cannot be greater than total marks-->
+<!--                            </div>-->
+<!--                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">-->
+<!--                                Marks should be an integer-->
+<!--                            </div>-->
                         </td>
 
                         <td>{{ studentGroup.get('totalMarks')?.value }}</td>
@@ -88,25 +112,22 @@
                 </table>
 
 
-
-
-<!--                        <mat-form-field appearance="outline">-->
-<!--                            <mat-label>Rank</mat-label>-->
-<!--                            <input matInput formControlName="rank">-->
-<!--                        </mat-form-field>-->
-
+                <!--                        <mat-form-field appearance="outline">-->
+                <!--                            <mat-label>Rank</mat-label>-->
+                <!--                            <input matInput formControlName="rank">-->
+                <!--                        </mat-form-field>-->
 
 
             </div>
 
 
             <div class="text-center m-3">
-                <button class="col-md-3" mat-raised-button color="primary"  type="submit">Create</button>
+                <button class="col-md-3" mat-raised-button color="primary" type="submit">Create</button>
             </div>
         </form>
     </mat-card-content>
 
-<!--<prettyjson [obj]="totalMarks.value"></prettyjson>-->
-<!--<prettyjson [obj]="form.getRawValue()"></prettyjson>-->
+    <!--<prettyjson [obj]="totalMarks.value"></prettyjson>-->
+    <!--<prettyjson [obj]="form.getRawValue()"></prettyjson>-->
 </mat-card>
 
