@@ -8,6 +8,7 @@ import {needConfirmation} from "../../../confirm-dialog/confirm-dialog.decorator
 import {AddClassComponent} from "../../../add-class/add-class.component";
 import {AddMessageComponent} from "../../../messages/add-message/add-message.component";
 import {SendUserMessageComponent} from "../../../messages/send-user-message/send-user-message.component";
+import {EditUsersComponent} from "../../edit-users/edit-users.component";
 
 @Component({
   selector: 'app-parent-list',
@@ -38,7 +39,7 @@ export class ParentListComponent {
   }
 
   edit(data: any) {
-    this.marDialog.open(AddClassComponent,
+    this.marDialog.open(EditUsersComponent,
         {
           width: '600px',
           data:data

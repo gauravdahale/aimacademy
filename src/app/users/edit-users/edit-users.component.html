@@ -1,4 +1,27 @@
-<div class="container">
-    <div form></div>
+<div class="container ms-2 me-2 mt-2 mb-2">
+   <table class="table table-bordered table-responsive">
+       <thead>
+       <tr>
+           <th>Roll No</th>
+           <th>Name</th>
+           <th *ngIf="data.childName" >Child Name</th>
+           <th>Number</th>
+           <th>Type</th>
+<!--           <th>Last Install</th>-->
+       </tr>
+       </thead>
+
+<tbody>
+<tr>
+    <td>{{mData.rollNo}} </td>
+    <td >{{mData.userName}}</td>
+    <td *ngIf="mData.childName">{{mData.childName}}</td>
+    <td> {{mData.userNumber}}</td>
+    <td> {{mData.type}}</td>
+<!--    <td> {{mData.lastinstallDate}}</td>-->
+</tr>
+
+</tbody>
+   </table>
 
 </div>

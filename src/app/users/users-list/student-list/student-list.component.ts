@@ -36,7 +36,7 @@ export class StudentListComponent {
     this._destroyed$.complete()
   }
 
-  @needConfirmation()
+
   edit(data: any) {
     this.marDialog.open(EditUsersComponent,
         {
