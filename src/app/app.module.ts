@@ -7,9 +7,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '../environments/environment';
 import {provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService} from '@angular/fire/analytics';
-import {provideAuth, getAuth} from '@angular/fire/auth';
-import {provideDatabase, getDatabase} from '@angular/fire/database';
-import {provideFirestore, getFirestore} from '@angular/fire/firestore';
+import {provideAuth, getAuth, connectAuthEmulator} from '@angular/fire/auth';
+import {provideDatabase, getDatabase, connectDatabaseEmulator} from '@angular/fire/database';
+import {provideFirestore, getFirestore, connectFirestoreEmulator} from '@angular/fire/firestore';
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import {NavComponent} from './nav/nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -116,9 +116,30 @@ import { EditUsersComponent } from './users/edit-users/edit-users.component';
         AppRoutingModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAnalytics(() => getAnalytics()),
-        provideAuth(() => getAuth()),
-        provideDatabase(() => getDatabase()),
-        provideFirestore(() => getFirestore()),
+        provideAuth(() => {
+            const auth = getAuth();
+
+            if (environment.useEmulator)
+                connectAuthEmulator(auth, `http://localhost:9099`)
+
+            return (auth);
+        }),
+        provideDatabase(() => {
+            const db = getDatabase()
+
+            if ( environment.useEmulator )
+                connectDatabaseEmulator( db, 'localhost' , 9000 );
+
+            return ( db );
+        }),
+        provideFirestore(() => {
+            const firestore = getFirestore()
+
+            if ( environment.useEmulator )
+                connectFirestoreEmulator( firestore, 'localhost' , 8080 );
+            return ( firestore );
+
+        }),
         LayoutModule,
         MatToolbarModule,
         MatButtonModule,
@@ -137,7 +158,6 @@ import { EditUsersComponent } from './users/edit-users/edit-users.component';
         FormsModule,
         MatSnackBarModule,
         MatTableModule,
-        MatIconModule,
         MatDatepickerModule,
         MatRadioModule,
         MatDialogModule,

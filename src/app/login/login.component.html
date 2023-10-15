@@ -1,10 +1,9 @@
-<section class="overflow-hidden" >
-    <div class="" >
+<section class="overflow-hidden">
+    <div class="">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="">
                 <div class=" rounded-3 text-black">
                     <div class="row ">
-
 
 
                         <div class="col-lg-4 col-md-4 mt-5">
@@ -24,25 +23,31 @@
                                     <div class="form-outline  mb-4">
                                         <div class="form-group w-50 mx-auto">
 
-                                            <label class="form-label text-secondary" >Username</label>
-                                            <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"  class="form-control" formControlName="email" placeholder="Username" />
-                                            <span  *ngIf=" username && username.invalid  &&  username.touched" style="color: red;">Please Enter Valid Username</span>
+                                            <label class="form-label text-secondary">Username</label>
+                                            <input type="email" name="email"
+                                                   pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$" class="form-control"
+                                                   formControlName="email" placeholder="Username"/>
+                                            <span *ngIf=" username && username.invalid  &&  username.touched"
+                                                  style="color: red;">Please Enter Valid Username</span>
                                         </div>
                                     </div>
 
                                     <div class="form-group" *ngIf="!changePassword">
                                         <div class="form-outline w-50 mx-auto mb-4">
-                                            <label class="form-label text-secondary" >Password</label>
+                                            <label class="form-label text-secondary">Password</label>
                                             <div class="input-icons">
                                                 <i (click)="hideshowpass()" class="fa {{eyeIcon}}"></i>
 
-                                                <input  [type]="type" class="form-control " pattern="(?=.*[0-9a-zA-Z]).{6,}" formControlName="password" placeholder="********" />
+                                                <input [type]="type" class="form-control "
+                                                       pattern="(?=.*[0-9a-zA-Z]).{6,}" formControlName="password"
+                                                       placeholder="********"/>
 
                                             </div>
-                                            <span *ngIf=" password && password.invalid  &&  password.touched" style="color: red;">Please Enter Valid Password (*Length should be 8-16 characters , At least 1 Uppercase letters, 1 Lowercase letters , 1 Number  and special characters!)</span>
-                                        </div >
-                                        <div class="w-50 mx-auto" >
-                                            <a (click)="forgotPassword()" >   <span style="color: #0b5ba8;cursor: pointer"  >Forgot Password?</span></a>
+                                            <span *ngIf=" password && password.invalid  &&  password.touched"
+                                                  style="color: red;">Please Enter Valid Password (*Length should be 8-16 characters , At least 1 Uppercase letters, 1 Lowercase letters , 1 Number  and special characters!)</span>
+                                        </div>
+                                        <div class="w-50 mx-auto">
+                                            <a (click)="forgotPassword()"> <span style="color: #0b5ba8;cursor: pointer">Forgot Password?</span></a>
 
                                         </div>
 
@@ -51,11 +56,13 @@
 
                                     <div class="text-center pt-1  pb-1">
                                         <!--                          <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block fa-lg  mb-3" (click)="loginUser()" >Log in</button>&nbsp;-->
-                                        <button  [disabled]="loginForm.invalid"  type="submit"  mat-raised-button (click)="loginUser()"  color="primary" class="w-50 mt-2 text-white bg-dark">LOGIN</button>&nbsp;
+                                        <button [disabled]="loginForm.invalid" type="submit" mat-raised-button
+                                                (click)="loginUser()" color="primary"
+                                                class="w-50 mt-2 text-white bg-dark">LOGIN
+                                        </button>&nbsp;
 
                                         <!-- <a class="text-muted" href="#!">Forgot password</a> -->
                                     </div>
-
 
 
                                     <!-- <div class="d-flex align-items-center justify-content-center pb-4">
@@ -65,60 +72,56 @@
 
                                 </form>
 
-<!--                                <form [formGroup]="changePasswordForm" *ngIf="changePassword">-->
-<!--                                    <p>Reset Password</p>-->
-<!--                                    &lt;!&ndash; pattern : mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";-->
-<!--                                    passwordPtn ='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$'-->
-<!--                                    emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" &ndash;&gt;-->
-<!--                                    &lt;!&ndash;EMAIL&ndash;&gt;-->
-<!--                                    <div class="form-outline mb-4">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="form-label" >Email</label>-->
-<!--                                            <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"  class="form-control" formControlName="email" #changepasswordemail/>-->
-<!--                                            <span  *ngIf=" username && username.invalid  &&  username.touched" style="color: red;">Please Enter Valid Username</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Password -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                            <div class="form-group" *ngIf="!changePassword">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <div class="form-outline mb-4">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <label class="form-label" >Password</label>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <div class="input-icons">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <i (click)="hideshowpass()" class="fa {{eyeIcon}}"></i>&ndash;&gt;-->
+                                <!--                                <form [formGroup]="changePasswordForm" *ngIf="changePassword">-->
+                                <!--                                    <p>Reset Password</p>-->
+                                <!--                                    &lt;!&ndash; pattern : mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";-->
+                                <!--                                    passwordPtn ='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$'-->
+                                <!--                                    emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" &ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;EMAIL&ndash;&gt;-->
+                                <!--                                    <div class="form-outline mb-4">-->
+                                <!--                                        <div class="form-group">-->
+                                <!--                                            <label class="form-label" >Email</label>-->
+                                <!--                                            <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"  class="form-control" formControlName="email" #changepasswordemail/>-->
+                                <!--                                            <span  *ngIf=" username && username.invalid  &&  username.touched" style="color: red;">Please Enter Valid Username</span>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Password -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                            <div class="form-group" *ngIf="!changePassword">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                <div class="form-outline mb-4">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    <label class="form-label" >Password</label>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    <div class="input-icons">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <i (click)="hideshowpass()" class="fa {{eyeIcon}}"></i>&ndash;&gt;-->
 
-<!--                                    &lt;!&ndash;                                        <input  [type]="type" class="form-control" pattern="(?=.*[0-9a-zA-Z]).{6,}" formControlName="password" />&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <input  [type]="type" class="form-control" pattern="(?=.*[0-9a-zA-Z]).{6,}" formControlName="password" />&ndash;&gt;-->
 
-<!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <span *ngIf=" password && password.invalid  &&  password.touched" style="color: red;">Please Enter Valid Password (*Length should be 8-16 characters , At least 1 Uppercase letters, 1 Lowercase letters , 1 Number  and special characters!)</span>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                <a (click)="forgotPassword()">   <span style="color: #0b5ba8;cursor: pointer">Forgot Password</span></a>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    <span *ngIf=" password && password.invalid  &&  password.touched" style="color: red;">Please Enter Valid Password (*Length should be 8-16 characters , At least 1 Uppercase letters, 1 Lowercase letters , 1 Number  and special characters!)</span>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                </div>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                <a (click)="forgotPassword()">   <span style="color: #0b5ba8;cursor: pointer">Forgot Password</span></a>&ndash;&gt;-->
 
-<!--                                    &lt;!&ndash;                            </div>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                            </div>&ndash;&gt;-->
 
-<!--                                    <div class="d-flex justify-content-center">-->
-<!--                                        <div class="text-center pt-1 mb-5 pb-1">-->
-<!--                                            &lt;!&ndash;                          <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block fa-lg  mb-3" (click)="loginUser()" >Log in</button>&nbsp;&ndash;&gt;-->
-<!--                                            <button  [disabled]="changePasswordForm.invalid"  type="submit"  mat-raised-button (click)="submitForgotPassword(changepasswordemail.value)"  color="primary">Change </button>&nbsp;-->
-<!--                                            &lt;!&ndash; <a class="text-muted" href="#!">Forgot password</a> &ndash;&gt;-->
-<!--                                        </div>-->
+                                <!--                                    <div class="d-flex justify-content-center">-->
+                                <!--                                        <div class="text-center pt-1 mb-5 pb-1">-->
+                                <!--                                            &lt;!&ndash;                          <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block fa-lg  mb-3" (click)="loginUser()" >Log in</button>&nbsp;&ndash;&gt;-->
+                                <!--                                            <button  [disabled]="changePasswordForm.invalid"  type="submit"  mat-raised-button (click)="submitForgotPassword(changepasswordemail.value)"  color="primary">Change </button>&nbsp;-->
+                                <!--                                            &lt;!&ndash; <a class="text-muted" href="#!">Forgot password</a> &ndash;&gt;-->
+                                <!--                                        </div>-->
 
-<!--                                    </div>-->
+                                <!--                                    </div>-->
 
-<!--                                    &lt;!&ndash; <div class="d-flex align-items-center justify-content-center pb-4">-->
-<!--                                      <p class="mb-0 me-2">Don't have an account?</p>-->
-<!--                                      <button type="button" class="btn btn-outline-danger">Create new</button>-->
-<!--                                    </div> &ndash;&gt;-->
+                                <!--                                    &lt;!&ndash; <div class="d-flex align-items-center justify-content-center pb-4">-->
+                                <!--                                      <p class="mb-0 me-2">Don't have an account?</p>-->
+                                <!--                                      <button type="button" class="btn btn-outline-danger">Create new</button>-->
+                                <!--                                    </div> &ndash;&gt;-->
 
-<!--                                </form>-->
+                                <!--                                </form>-->
                             </div>
                         </div>
 
 
-
-
-
-
-                        <div class="col-md-8 col-lg-8  col-sm-12 col-xs-12 " >
-                            <img  src="assets/login-image.jpg" class="img-fluid image loginImage"   alt="loginImage"/>
+                        <div class="col-md-8 col-lg-8  col-sm-12 col-xs-12 ">
+                            <img src="assets/login-image.jpg" class="img-fluid image loginImage" alt="loginImage"/>
                         </div>
                     </div>
                 </div>

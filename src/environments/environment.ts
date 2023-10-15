@@ -1,4 +1,7 @@
 export const environment = {
+    useEmulator:true,
+
+    production: false,
     firebase: {
         apiKey: "AIzaSyBMdgC00crWIFGSdzKo4gVJhdfqQvBeiXo",
         authDomain: "aim-coaching-classes.firebaseapp.com",
