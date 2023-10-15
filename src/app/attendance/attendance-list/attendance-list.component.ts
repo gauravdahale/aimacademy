@@ -63,7 +63,7 @@ width:'100%',
     })
   }
 
-  viewAttendance(record:StudentAttendance) {
+  viewAttendance(record:any) {
     this.mDialog.open(ViewAttendanceComponent,{
       width:'100%',
       height:'80%',

@@ -7,11 +7,11 @@
             <div class="d-flex justify-content-between mx-4 my-2">
                 <div>
                     <h3>Class:{{this.batchSelected}}</h3>
-                    <h4>Date: {{this.date|date:'dd--MM-yyyy'}}</h4>
+                    <h4>Date: {{this.date}}</h4>
                 </div>
                 <div>
-                    <button mat-icon-button color="primary">
-                        <mat-icon>download</mat-icon>
+                    <button mat-icon-button color="primary" (click)="printPDF()">
+                        <mat-icon >download</mat-icon>
                     </button>
                 </div>
             </div>

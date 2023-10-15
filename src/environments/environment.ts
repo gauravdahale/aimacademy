@@ -1,5 +1,5 @@
 export const environment = {
-    useEmulator:true,
+    useEmulator:false,
 
     production: false,
     firebase: {
