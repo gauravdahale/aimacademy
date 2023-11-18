@@ -74,6 +74,10 @@ import { HomeComponent } from './home/home.component';
 import { HomeCardComponent } from './home-card/home-card.component';
 import { ViewAttendanceComponent } from './attendance/student-attendance/view-attendance/view-attendance.component';
 import { EditUsersComponent } from './users/edit-users/edit-users.component';
+import {DeleteDataComponent} from "./delete-data/delete-data.component";
+import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
+import { AssignmentTableComponent } from './assignements/assignment-table/assignment-table.component';
+import { AddAssignmentComponent } from './assignements/add-assignment/add-assignment.component';
 
 @NgModule({
     declarations: [
@@ -107,6 +111,10 @@ import { EditUsersComponent } from './users/edit-users/edit-users.component';
         HomeCardComponent,
         ViewAttendanceComponent,
         EditUsersComponent,
+        DeleteDataComponent,
+        PrivacyPolicyComponent,
+        AssignmentTableComponent,
+        AddAssignmentComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,26 @@
+<div class="container">
+
+    <mat-card>
+        <mat-card-content>
+            <h2> Add Assignment </h2>
+            <hr>
+            <div>
+
+                <mat-form-field>
+                    <mat-label>Select a file</mat-label>
+                    <ngx-mat-file-input  [multiple]="false" (change)="onFileSelected($event)"></ngx-mat-file-input>
+
+<!--                <input matInput type="file" (change)="onFileSelected($event)">-->
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <mat-label>Enter Description</mat-label>
+                <input matInput [formControl]="description" accept=".pdf">
+            </mat-form-field>
+
+<div class="d-flex justify-content-center">
+    <button mat-raised-button color="primary" (click)="uploadPDF()"  >Upload</button>
+</div>
+        </mat-card-content>
+    </mat-card>
+</div>

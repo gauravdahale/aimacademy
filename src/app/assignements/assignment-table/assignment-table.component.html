@@ -1,0 +1,35 @@
+<div class="container mt-5">
+<div class="d-flex justify-content-end m-2">
+    <button  mat-raised-button color="primary" (click)="openDialog()">Add Assignment </button>
+</div>
+
+    <table  mat-table [dataSource]="pdfFiles" class="mat-elevation-z6">
+        <!-- Columns -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let pdf">{{ pdf.description }}</td>
+        </ng-container>
+        <ng-container matColumnDef="fileUrl">
+            <th mat-header-cell *matHeaderCellDef> Url</th>
+            <td mat-cell *matCellDef="let pdf"><a [href]="pdf.fileUrl" > {{ pdf.fileUrl }} </a></td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let pdf"> {{ pdf.date?.toDate()|date:'dd-MM-yyyy mm:hh:aa'  }}</td>
+        </ng-container>
+        <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef>Symbol</th>
+            <td mat-cell *matCellDef="let pdf">
+            <button mat-icon-button (click)="delete(pdf.id)"> <mat-icon>delete</mat-icon></button>
+            </td>
+        </ng-container>
+        <!-- Add more columns as needed -->
+
+        <!-- Header row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- Data row -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+</div>

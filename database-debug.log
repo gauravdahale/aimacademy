@@ -1,0 +1,8 @@
+10:26:43.854 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+10:26:43.936 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+10:35:12.053 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - aim-coaching-classes-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 73ms, init: 0ms
+10:35:43.062 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace aim-coaching-classes, but the emulator is configured for aim-coaching-classes-default-rtdb. To 
+opt-out of single project mode add/set the single_project_mode: false property in 
+the firebase.json emulators config. 
+10:35:43.070 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - aim-coaching-classes successfully activated FBKV (SurveyIdle(0)) wait: 3ms, init: 0ms

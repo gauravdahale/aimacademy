@@ -19,6 +19,10 @@ import {GalleryComponent} from "./gallery/gallery.component";
 import {BulkDataUploadComponent} from "./bulk-data-upload/bulk-data-upload.component";
 import {SliderListComponent} from "./slider-list/slider-list.component";
 import {HomeComponent} from "./home/home.component";
+import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
+import {DeleteDataComponent} from "./delete-data/delete-data.component";
+import {AddAssignmentComponent} from "./assignements/add-assignment/add-assignment.component";
+import {AssignmentTableComponent} from "./assignements/assignment-table/assignment-table.component";
 
 const routes: Routes = [
 
@@ -120,10 +124,25 @@ const routes: Routes = [
         canActivate: [AuthGuard],
 
       },
-      { path: 'edit-test/:testId', component: EditTestComponent }
+      { path: 'edit-test/:testId', component: EditTestComponent },
+      {path:'add-assignment',
+      component:AddAssignmentComponent
+      },
+      {path:'assignments',
+        component:AssignmentTableComponent
+      }
+
     ],
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+  },
+  {
+    path: 'delete-data',
+    component: DeleteDataComponent
+  }
 ];
 
 @NgModule({

@@ -26,7 +26,9 @@ export class HomeComponent implements OnInit {
             { title: 'Classes', icon: 'schedule',url:'/class-list' },
             { title: 'Students', icon: 'group',url:'/student-list' },
             { title: 'Tests', icon: 'book',url:'/tests' },
-            { title: 'Messages', icon: 'message',url:'/messages' }
+            { title: 'Messages', icon: 'message',url:'/messages' },
+            { title: 'Assignments', icon: 'assignment',url:'/assignments' },
+            { title: 'Users', icon: 'person',url:'/users' },
         ];
     }
 
