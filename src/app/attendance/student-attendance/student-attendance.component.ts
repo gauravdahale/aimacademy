@@ -22,7 +22,7 @@ export class StudentAttendanceComponent implements OnInit {
     studentData?: Student
     displayedColumns: string[] = ['rollNo', 'studentName', 'status', 'date',];
     dataSource: MatTableDataSource<StudentAttendance>;
-studentDataLoading=false
+    studentDataLoading = false
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -42,10 +42,10 @@ studentDataLoading=false
 
     ngOnInit(): void {
         if (this.id) this.mService.fetchStudentById(this.id).subscribe(res => {
-             this.studentDataLoading=true
-                this.studentData = res
-            this.studentDataLoading=false
-            })
+            this.studentDataLoading = true
+            this.studentData = res
+            this.studentDataLoading = false
+        })
 
         if (this.id)
             this.mService.fetchStudentAttendance(this.id).subscribe((res) => {
@@ -78,8 +78,11 @@ studentDataLoading=false
         doc.setFontSize(12);
         // doc.text( element.testName, 20, 10);
         doc.text('AIM COACHING CLASSES', centerX, 10, {align: 'center'});
+        doc.setFontSize(10);
         // doc.text('Date: ' +this.datePipe.transform( element.date.toDate(),"dd-MM-yyyy"),  rightX, 10, { align: 'right' });
-
+        doc.text(`Name:${this.studentData?.studentName} `, 15, 15)
+        doc.text(`Batch Name:${this.studentData?.batchName} `, 15, 20)
+        doc.text(`Roll No:${this.studentData?.rollNo} `, 15, 25)
         const students = this.mData as StudentAttendance[]
         const header = [['Roll No', 'Name', 'Status', 'Date']];
         const rows = students.map(student => [student.rollNo, student.studentName, student.status, student.date]);
@@ -87,7 +90,7 @@ studentDataLoading=false
         (doc as any).autoTable({
             head: header,
             body: rows,
-            startY: 15,
+            startY: 30,
             styles: {
                 //
                 //     // cellPadding: 4,
