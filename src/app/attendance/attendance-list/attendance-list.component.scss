@@ -1,1 +1,40 @@
 
+table{
+  width: 100%;
+}
+.mat-column-position {
+  /* Set width here */
+  min-width: 60px; /* For example */
+  max-width: 60px; /* For example */
+}
+.mat-column-date {
+  padding: 0;
+  /* Set width here */
+  min-width: 70px; /* For example */
+  max-width: 70px; /* For example */
+}
+
+.mat-column-absent {
+
+  /* Set width here */
+  min-width: 40px; /* For example */
+  max-width: 40px; /* For example */
+}
+.mat-column-present {
+
+  /* Set width here */
+  min-width: 40px; /* For example */
+  max-width: 40px; /* For example */
+}
+.mat-column-action {
+  padding: 0;
+  /* Set width here */
+  min-width: 60px; /* For example */
+  max-width: 60px; /* For example */
+}
+.mat-column-total {
+  padding: 0;
+  /* Set width here */
+  min-width: 50px; /* For example */
+  max-width: 50px; /* For example */
+}

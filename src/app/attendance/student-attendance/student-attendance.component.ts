@@ -86,7 +86,6 @@ export class StudentAttendanceComponent implements OnInit {
         const students = this.mData as StudentAttendance[]
         const header = [['Roll No', 'Name', 'Status', 'Date']];
         const rows = students.map(student => [student.rollNo, student.studentName, student.status, student.date]);
-
         (doc as any).autoTable({
             head: header,
             body: rows,
