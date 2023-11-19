@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
@@ -9,17 +9,20 @@ import {AddClassComponent} from "../../../add-class/add-class.component";
 import {AddMessageComponent} from "../../../messages/add-message/add-message.component";
 import {SendUserMessageComponent} from "../../../messages/send-user-message/send-user-message.component";
 import {EditUsersComponent} from "../../edit-users/edit-users.component";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-parent-list',
   templateUrl: './parent-list.component.html',
   styleUrls: ['./parent-list.component.scss']
 })
-export class ParentListComponent {
+export class ParentListComponent implements  AfterViewInit{
   _destroyed$ = new Subject()
   displayedColumns: string[] = ['position', 'userName','userNumber','childName','rollNo','type', 'action'];
   data: any[] = []
   datasource: MatTableDataSource<any>
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private marDialog: MatDialog,
               private matSnackBar:MatSnackBar,
               private readonly mFirestore: AngularFirestore) {
@@ -30,6 +33,8 @@ export class ParentListComponent {
         .subscribe(res => {
           this.data = res
           this.datasource = new MatTableDataSource<any>(this.data)
+            this.datasource.paginator =this.paginator
+
 
         })
   }
@@ -54,6 +59,11 @@ export class ParentListComponent {
               data:element
           })
 
+
+    }
+
+    ngAfterViewInit(): void {
+      this.datasource.paginator =this.paginator
 
     }
 }

@@ -15,7 +15,7 @@ import {StudentService} from "../services/student.service";
 })
 export class ClassListComponent implements OnInit, OnDestroy {
     _destroyed$ = new Subject()
-    displayedColumns: string[] = window.innerWidth > 600 ? ['position', 'className','studentCount', 'action'] : ['position', 'action'];
+    displayedColumns: string[] = window.innerWidth > 600 ? ['position', 'className','studentCount', 'action'] : ['position','className', 'action'];
     data: any[] = []
     datasource: MatTableDataSource<any>
     mStudents: any[] = []

@@ -26,7 +26,7 @@ export class AddAttendanceComponent {
 
     constructor(private readonly mFirestore: Firestore,
                 private readonly mSnackBar: MatSnackBar,
-                private readonly mDialogRef:MatDialogRef<AddAttendanceComponent>,
+                private readonly mDialogRef: MatDialogRef<AddAttendanceComponent>,
                 private firestore: AngularFirestore,
                 private readonly mDatePipe: DatePipe) {
         let batchRef = collection(this.mFirestore, 'class')
@@ -63,8 +63,8 @@ export class AddAttendanceComponent {
             this.attendanceData.forEach(it => {
                 let StudentRef = this.firestore.firestore.doc(`studentAttendance/${it.rollNo}`)
                 it.className = this.batchSelected
-                it.status= it.status?'Present':'Absent'
-                batch.set(StudentRef, {'attendance': arrayUnion({...it, ...{date: d}})}, {merge: true})
+                it.status = it.checked==true ? 'Present' : 'Absent',
+                    batch.set(StudentRef, {'attendance': arrayUnion({...it, ...{date: d}})}, {merge: true})
                 // setDoc(StudentRef, {'attendance': arrayUnion({...it,...{date:d}})},)
             })
             batch.commit().then(() => {
@@ -76,7 +76,7 @@ export class AddAttendanceComponent {
                 }).then(() => {
 
                     this.mSnackBar.open('Attendance added successfully')._dismissAfter(3000)
-this.mDialogRef.close()
+                    this.mDialogRef.close()
                 })
             })
 
@@ -107,6 +107,7 @@ this.mDialogRef.close()
 
                 .subscribe(res => {
                     if (res == null) {
+                        console.log('NEW ATTENDANCE ')
                         let mRef = collection(this.mFirestore, 'students')
                         // @ts-ignore
                         let mQuery = query(mRef, where('batchName', '==', this.batchSelected))
@@ -116,18 +117,26 @@ this.mDialogRef.close()
                             map(x => x.map(y => ({
                                 "rollNo": y.rollNo,
                                 "studentName": y.studentName,
-                                "status": 'Present'
+                                "status": "Present",
+                                "checked": true
                             })))
                         ).subscribe(res => {
+
                             this.dataSource = new MatTableDataSource<AttendanceItem>(res)
                             this.attendanceData = res
                             this.dataSource.data = res
 
                         })
                     } else {
+                        console.log(' ATTENDANCE FOUND ')
+                        console.log(res)
+
                         // alert(JSON.stringify(res))
                         // console.log(data)
                         this.attendanceData = res['attendance'] as AttendanceItem[]
+                        this.attendanceData.forEach(it=>{
+                            it.checked = it.status=='Present'
+                        })
                         this.dataSource.data = this.attendanceData
                     }
                 })

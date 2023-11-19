@@ -3,7 +3,7 @@
 <div>
     <mat-form-field>
         <mat-label>Select Batch</mat-label>
-        <mat-select [(ngModel)]="batchSelected">
+        <mat-select [(ngModel)]="batchSelected" (selectionChange)="onBatchSelect($event)">
             <mat-option *ngFor="let b of (batch$|async)" [value]="b.className">{{b.className}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -16,6 +16,7 @@
 </div>
 
     <section>
+        <h3>{{batchSelected}}</h3>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -62,5 +63,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+        <mat-paginator [pageSizeOptions]="[20, 50, 75, 100,200]" aria-label="Select page "></mat-paginator>
+
 </section>
 </div>

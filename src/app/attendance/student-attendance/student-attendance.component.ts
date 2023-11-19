@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { StudentService } from '../../services/student.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StudentAttendance } from '../../model';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {StudentService} from '../../services/student.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {StudentAttendance} from '../../model';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 import {Student} from "../../interfaces/Student";
 import * as jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable';
 import 'jspdf-autotable'
 import {DatePipe} from "@angular/common";
+
 @Component({
     selector: 'app-student-attendance',
     templateUrl: './student-attendance.component.html',
@@ -18,10 +19,10 @@ import {DatePipe} from "@angular/common";
 export class StudentAttendanceComponent implements OnInit {
     mData: StudentAttendance[] = [];
     id?: string;
-studentData?:Student
-    displayedColumns: string[] = ['rollNo', 'studentName', 'status','date', ];
+    studentData?: Student
+    displayedColumns: string[] = ['rollNo', 'studentName', 'status', 'date',];
     dataSource: MatTableDataSource<StudentAttendance>;
-
+studentDataLoading=false
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -29,7 +30,7 @@ studentData?:Student
         private readonly mService: StudentService,
         private readonly router: Router,
         private readonly route: ActivatedRoute,
-        private  readonly datePipe:DatePipe,
+        private readonly datePipe: DatePipe,
     ) {
         this.dataSource = new MatTableDataSource<StudentAttendance>([]);
         route.paramMap.subscribe(pram => {
@@ -40,26 +41,27 @@ studentData?:Student
     }
 
     ngOnInit(): void {
-        if (this.id)
-            this.mService.fetchStudentById(this.id).subscribe(res=>{
-                this.studentData=res
+        if (this.id) this.mService.fetchStudentById(this.id).subscribe(res => {
+             this.studentDataLoading=true
+                this.studentData = res
+            this.studentDataLoading=false
             })
 
         if (this.id)
             this.mService.fetchStudentAttendance(this.id).subscribe((res) => {
-       if(res['attendance'])         this.mData = res['attendance'] as StudentAttendance[];
-               if(this.mData) {
-                   // Manually sort the data by the 'date' property in descending order
-                   this.mData.sort((a, b) =>
-                       new Date(b.date.split('-').reverse().join('-')).getTime() -
-                       new Date(a.date.split('-').reverse().join('-')).getTime()
-                   );
+                if (res['attendance']) this.mData = res['attendance'] as StudentAttendance[];
+                if (this.mData) {
+                    // Manually sort the data by the 'date' property in descending order
+                    this.mData.sort((a, b) =>
+                        new Date(b.date.split('-').reverse().join('-')).getTime() -
+                        new Date(a.date.split('-').reverse().join('-')).getTime()
+                    );
 
-                   this.dataSource.data = this.mData;
-                   this.dataSource.sort = this.sort; // Connect the sort to dataSource
-                   this.dataSource.paginator = this.paginator; // Connect the paginator to dataSource}
-               }
-               });
+                    this.dataSource.data = this.mData;
+                    this.dataSource.sort = this.sort; // Connect the sort to dataSource
+                    this.dataSource.paginator = this.paginator; // Connect the paginator to dataSource}
+                }
+            });
     }
 
     printPDF() {
@@ -75,12 +77,12 @@ studentData?:Student
         // Add test name and date on top
         doc.setFontSize(12);
         // doc.text( element.testName, 20, 10);
-        doc.text('AIM COACHING CLASSES', centerX, 10, { align: 'center' });
+        doc.text('AIM COACHING CLASSES', centerX, 10, {align: 'center'});
         // doc.text('Date: ' +this.datePipe.transform( element.date.toDate(),"dd-MM-yyyy"),  rightX, 10, { align: 'right' });
 
         const students = this.mData as StudentAttendance[]
-        const header = [['Roll No', 'Name', 'Status','Date']];
-        const rows = students.map(student => [student.rollNo, student.studentName,student.status,student.date]);
+        const header = [['Roll No', 'Name', 'Status', 'Date']];
+        const rows = students.map(student => [student.rollNo, student.studentName, student.status, student.date]);
 
         (doc as any).autoTable({
             head: header,

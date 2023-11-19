@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
       this.cards = [
-            { title: 'Classes', icon: 'schedule',url:'/class-list' },
+            // { title: 'Classes', icon: 'schedule',url:'/class-list' },
+            { title: 'Attendance', icon: 'schedule',url:'/attendance' },
             { title: 'Students', icon: 'group',url:'/student-list' },
             { title: 'Tests', icon: 'book',url:'/tests' },
             { title: 'Messages', icon: 'message',url:'/messages' },

@@ -1,31 +1,69 @@
 <div class="container">
+    <div class="row">
+
+    </div>
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Student Info</mat-card-title>
+        <mat-card-title>Student Info </mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
-        <div class="row">
-            <div class="col-md-3">Name</div>
-            <div class="col-md-9">{{studentData?.studentName}}</div>
-            <div class="col-md-3">Number</div>
-            <div class="col-md-9">{{studentData?.studentNumber}}</div>
-            <div class="col-md-3">Father Name</div>
-            <div class="col-md-9">{{studentData?.fathersName}}</div>
-            <div class="col-md-3">Number</div>
-            <div class="col-md-9">{{studentData?.fathersNumber}}</div>
-            <div class="col-md-3">Roll No</div>
-            <div class="col-md-9">{{studentData?.rollNo}}</div>
+        <table class="table table-striped" *ngIf="!studentDataLoading">
+            <tr>
+                <th scope="col" class="col-sm-3">Name</th>
+                <td  class="col-md-9 col-sm-6">{{studentData?.studentName}}</td>
+            </tr>
+            <tr>
+                <th scope="col" class="col-sm-3">Number</th>
+                <td class="col-md-9 col-sm-6">{{studentData?.studentNumber}}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="col-sm-3">Fathers Name</th>
+                <td class="col-md-9 col-sm-6">{{studentData?.fathersName}}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="col-sm-3">Fathers Number</th>
+                <td class="col-md-9 col-sm-6">{{studentData?.fathersNumber}}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="col-sm-3">Roll No</th>
+                <td class="col-md-9 col-sm-6">{{studentData?.rollNo}}</td>
+            </tr>
+            <tr>
+                <th class="col-sm-3">Batch Name</th>
+                <td class="col-md-9 col-sm-6">{{studentData?.batchName}}</td>
+            </tr>
+<!--            <tr>-->
+<!--                <th class="col-sm-3">College Name</th>-->
+<!--                <td class="col-md-9 col-sm-6">{{studentData?.collegeName}}</td>-->
+<!--            </tr>-->
+        </table>
 
-            <div class="col-md-3">Batch Name</div>
-            <div class="col-md-9">{{studentData?.batchName}}</div>
 
-            <div class="col-md-3">College Name</div>
-            <div class="col-md-9">{{studentData?.collegeName}}</div>
+<!--    <div class="row">-->
+<!--            <div class="col-sm-3">a</div>-->
+<!--            <div class="col-xs-3">b</div>-->
+<!--            <div class="col-md-3 col-sm-6">Name</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.studentName}}</div>-->
+<!--            <div class="col-md-3">Number</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.studentNumber}}</div>-->
+<!--            <div class="col-md-3">Father Name</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.fathersName}}</div>-->
+<!--            <div class="col-md-3">Number</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.fathersNumber}}</div>-->
+<!--            <div class="col-md-3">Roll No</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.rollNo}}</div>-->
 
-            <div class="col-md-3">City</div>
-            <div class="col-md-9">{{studentData?.city}}</div>
+<!--            <div class="col-md-3">Batch Name</div>-->
+<!--            <div class="col-md-9 col-sm-6">{{studentData?.batchName}}</div>-->
 
-        </div>
+<!--&lt;!&ndash;            <div class="col-md-3">College Name</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-9 col-sm-6">{{studentData?.collegeName}}</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="col-md-3">City</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-9 col-sm-6">{{studentData?.city}}</div>&ndash;&gt;-->
+
+<!--        </div>-->
     </mat-card-content>
 </mat-card>
 
