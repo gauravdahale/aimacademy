@@ -36,7 +36,7 @@ const routes: Routes = [
 
       {
         path: '',
-        redirectTo:'class-list',
+        redirectTo:'home',
 
         pathMatch: 'full',
         // component: ClassListComponent,
