@@ -1,4 +1,5 @@
 <div class="container p-2">
+    cxx
     <mat-card>
         <mat-card-header>
             <mat-card-title>Send Message</mat-card-title>
@@ -23,12 +24,13 @@
                     <mat-option *ngFor="let b of batchNames$|async" [value]="b.className" > {{b.className}} </mat-option>
                 </mat-select>
             </mat-form-field>
-<div class="d-flex justify-content-center">
-    <button mat-stroked-button color="primary" [disabled]="form.invalid" (click)="submit()">Submit</button>
-</div>
 
 
         </div>
+        <div class="d-flex justify-content-center">
+            <button mat-stroked-button color="primary" [disabled]="form.invalid" (click)="submit()">Submit</button>
+        </div>
+
     </mat-card-content>
 
     </mat-card>

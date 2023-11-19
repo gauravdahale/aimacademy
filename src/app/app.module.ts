@@ -78,6 +78,7 @@ import {DeleteDataComponent} from "./delete-data/delete-data.component";
 import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
 import { AssignmentTableComponent } from './assignements/assignment-table/assignment-table.component';
 import { AddAssignmentComponent } from './assignements/add-assignment/add-assignment.component';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
 
 @NgModule({
     declarations: [
@@ -114,7 +115,8 @@ import { AddAssignmentComponent } from './assignements/add-assignment/add-assign
         DeleteDataComponent,
         PrivacyPolicyComponent,
         AssignmentTableComponent,
-        AddAssignmentComponent
+        AddAssignmentComponent,
+        StudentDetailComponent
     ],
     imports: [
         BrowserModule,

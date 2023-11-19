@@ -68,7 +68,8 @@ Enter a valid image                        </mat-error>
             </div>
 
         </mat-card-content>
-        <mat-card-actions>
+
+            <div class="d-flex justify-content-center m-1">
             <button
                     (click)="postKitty()"
                     [disabled]="mForm.invalid || submitted"
@@ -77,6 +78,7 @@ Enter a valid image                        </mat-error>
             >
                 Send Message
             </button>
-        </mat-card-actions>
+            </div>
+
     </mat-card>
 </form>

@@ -79,7 +79,8 @@ export class AddTestComponent implements OnInit {
         // alert(totalMarks)
         const marksObtained = parseFloat(control.value); // Convert to a number
 
-        if (!isNaN(marksObtained) && !isNaN(totalMarks) && marksObtained > totalMarks) {
+        // if (!isNaN(marksObtained) && !isNaN(totalMarks) && marksObtained > totalMarks ) {
+        if ( marksObtained > totalMarks ) {
             return {marksGreaterThanTotal: true};
         }
 
@@ -168,9 +169,9 @@ export class AddTestComponent implements OnInit {
             name: [{value: student.studentName, disabled: true}, Validators.required],
             totalMarks: [this.totalMarks.value, Validators.required],
             // rank: [''],
-            correct: [0, [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
-            rightAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]],
-            wrongAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required, Validators.min(0)]]
+            correct: [0, [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]],
+            rightAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]],
+            wrongAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]]
         });
 
         this.studentsFormArray.push(studentFormGroup);
@@ -185,6 +186,7 @@ export class AddTestComponent implements OnInit {
     onSubmit() {
         if (this.form.valid) {
             this.testService.addTest(this.form.getRawValue() as TestInfo).then((re) => {
+
 
                 this.testService.addTestMarksByStudent(this.form.getRawValue() as TestInfo, re.id!).then(() => {
 
@@ -303,7 +305,7 @@ export class AddTestComponent implements OnInit {
         const totalMarks = +this.totalMarks.value!
         // alert(this.totalMarks.value)
         const marksObtained = +control.value;
-        if (marksObtained && totalMarks && marksObtained > totalMarks) {
+        if (marksObtained && totalMarks && marksObtained > totalMarks ) {
             return {maxMarksExceeded: true};
         }
         return null;

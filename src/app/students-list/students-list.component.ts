@@ -17,6 +17,7 @@ import * as jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable';
 import 'jspdf-autotable'
 import {DatePipe} from "@angular/common";
+import {StudentDetailComponent} from "../student-detail/student-detail.component";
 @Component({
     selector: 'app-students-list',
     templateUrl: './students-list.component.html',
@@ -155,4 +156,7 @@ export class StudentsListComponent implements OnInit, OnDestroy {
 
     }
 
+    studentResults(id:any) {
+        this.router.navigate(['student-detail',id])
+    }
 }

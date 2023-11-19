@@ -3,3 +3,22 @@ table {
     max-height: 600px;
     //overflow-y: auto;
 }
+
+.mat-column-studentName {
+    padding: 0;
+    /* Set width here */
+    min-width: 100px; /* For example */
+    max-width: 100px; /* For example */
+}
+.mat-column-rollNo {
+    padding: 5px;
+    /* Set width here */
+    min-width: 50px; /* For example */
+    max-width: 50px; /* For example */
+}
+td{
+    font-size: 12px;
+}
+th{
+    font-size: 12px;
+}

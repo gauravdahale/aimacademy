@@ -1,0 +1,40 @@
+
+
+td{
+font-size: 12px;
+}
+th{
+  font-size: 12px;
+}
+.mat-column-position {
+  padding: 10px;
+  /* Set width here */
+  min-width: 50px; /* For example */
+  max-width: 50px; /* For example */
+}
+//.mat-column-testDate {
+//  padding: 10px;
+//  /* Set width here */
+//  min-width: 50px; /* For example */
+//  max-width: 50px; /* For example */
+//}
+
+.mat-column-testName {
+  padding: 0px;
+  /* Set width here */
+  min-width: 70px; /* For example */
+  max-width: 70px; /* For example */
+}
+.mat-column-batchName {
+  padding: 0px;
+  /* Set width here */
+  min-width: 70px; /* For example */
+  max-width: 70px; /* For example */
+}
+
+.mat-column-action {
+  padding: 0px;
+  /* Set width here */
+  //min-width: 50px; /* For example */
+  //max-width: 50px; /* For example */
+}

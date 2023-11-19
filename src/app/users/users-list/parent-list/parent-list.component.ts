@@ -18,7 +18,7 @@ import {MatPaginator} from "@angular/material/paginator";
 })
 export class ParentListComponent implements  AfterViewInit{
   _destroyed$ = new Subject()
-  displayedColumns: string[] = ['position', 'userName','userNumber','childName','rollNo','type', 'action'];
+  displayedColumns: string[] = ['position', 'userName','userNumber','childName','rollNo', 'action'];
   data: any[] = []
   datasource: MatTableDataSource<any>
     @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -6,6 +6,7 @@ import {AddMessageComponent} from "./add-message/add-message.component";
 import {Message} from "../interfaces/message";
 import {SendImageMessageComponent} from "./send-image-message/send-image-message.component";
 import {MatPaginator} from "@angular/material/paginator";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 
 @Component({
     selector: 'app-messages',
@@ -24,6 +25,7 @@ export class MessagesComponent implements OnInit {
         this.displayedColumns = event.target.innerWidth > 600 ? ['title', 'message', 'date', 'type', 'messageType'] : ['title', 'message', 'date','type'];
     }
     constructor(private firestore: AngularFirestore,
+                private  readonly mDatabase:AngularFireDatabase,
                 private mDialog: MatDialog) {
         this.dataSource = new MatTableDataSource<any>(this.messages)
 
@@ -35,7 +37,9 @@ export class MessagesComponent implements OnInit {
     }
 
     fetchMessages() {
-        this.firestore.collection('messages',ref => ref.orderBy('date','desc')).valueChanges().subscribe((notifications: any[]) => {
+        this.mDatabase.list('messages',ref => ref.orderByChild("date"))
+        // this.mD.collection('messages',ref => ref.orderBy('date','desc'))
+            .valueChanges().subscribe((notifications: any[]) => {
             this.messages = notifications;
             this.dataSource = new MatTableDataSource(this.messages);
         this.dataSource.paginator =this.paginator

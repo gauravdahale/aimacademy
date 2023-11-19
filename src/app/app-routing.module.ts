@@ -23,6 +23,7 @@ import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component"
 import {DeleteDataComponent} from "./delete-data/delete-data.component";
 import {AddAssignmentComponent} from "./assignements/add-assignment/add-assignment.component";
 import {AssignmentTableComponent} from "./assignements/assignment-table/assignment-table.component";
+import {StudentDetailComponent} from "./student-detail/student-detail.component";
 
 const routes: Routes = [
 
@@ -56,6 +57,12 @@ const routes: Routes = [
       {
         path: 'student-list',
         component: StudentsListComponent,
+        canActivate: [AuthGuard],
+
+      },
+      {
+        path: 'student-detail/:id',
+        component: StudentDetailComponent,
         canActivate: [AuthGuard],
 
       },
