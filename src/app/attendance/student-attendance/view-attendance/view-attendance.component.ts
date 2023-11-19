@@ -94,11 +94,11 @@ export class ViewAttendanceComponent implements OnInit {
         doc.setFontSize(12);
         // doc.text( element.testName, 20, 10);
         doc.text('AIM COACHING CLASSES', centerX, 10, { align: 'center' });
-        // doc.text('Date: ' +this.datePipe.transform( element.date.toDate(),"dd-MM-yyyy"),  rightX, 10, { align: 'right' });
+        doc.text('Date: ' + this.data.date,  rightX, 10, { align: 'right' });
 
         const students = this.attendanceData as StudentAttendance[]
-        const header = [['Roll No', 'Name', 'Status','Date']];
-        const rows = students.map(student => [student.rollNo, student.studentName,student.status,student.date]);
+        const header = [['Roll No', 'Name', 'Status']];
+        const rows = students.map(student => [student.rollNo, student.studentName,student.status]);
 
         (doc as any).autoTable({
             head: header,
