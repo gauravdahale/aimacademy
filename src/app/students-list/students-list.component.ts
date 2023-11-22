@@ -73,7 +73,11 @@ export class StudentsListComponent implements OnInit, OnDestroy {
         localStorage.setItem('aimClass',className)
         // this.matSnackBar.open(className +' selected')._dismissAfter(3000)
         this.mStudentService.fetchStudentsByClass(className).pipe(takeUntil(this._destroyed$)).subscribe(res => {
+           res.forEach((x,i)=>{
 
+               x.sr  =i+1
+               // console.log(x.sr)
+           })
             this.studentData = res
            this.dataSource = new MatTableDataSource<Student>()
             this.dataSource.data = this.studentData
@@ -90,8 +94,15 @@ export class StudentsListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.mStudentService.fetchStudentsByClass(this.classSelected).pipe(takeUntil(this._destroyed$)).subscribe(res => {
+            res.forEach((x,i)=>{
+
+                x.sr  =i+1
+                // console.log(x.sr)
+            })
             this.studentData = res
             this.dataSource.data = this.studentData
+            this.dataSource.paginator =this.paginator
+            this.dataSource.sort =this.sort
         })
 
     }

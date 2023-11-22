@@ -10,6 +10,7 @@ import * as jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable';
 import 'jspdf-autotable'
 import {DatePipe} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-student-attendance',
@@ -30,6 +31,7 @@ export class StudentAttendanceComponent implements OnInit {
         private readonly mService: StudentService,
         private readonly router: Router,
         private readonly route: ActivatedRoute,
+        private readonly matSnackbar:MatSnackBar,
         private readonly datePipe: DatePipe,
     ) {
         this.dataSource = new MatTableDataSource<StudentAttendance>([]);
@@ -50,6 +52,7 @@ export class StudentAttendanceComponent implements OnInit {
         if (this.id)
             this.mService.fetchStudentAttendance(this.id).subscribe((res) => {
                 if (res['attendance']) this.mData = res['attendance'] as StudentAttendance[];
+              this.mData=  this.mData.filter(x=>x.status=='Absent')
                 if (this.mData) {
                     // Manually sort the data by the 'date' property in descending order
                     this.mData.sort((a, b) =>
@@ -70,7 +73,8 @@ export class StudentAttendanceComponent implements OnInit {
 //         sortedStudents.forEach((student, index) => {
 //             student.rank = index + 1; // Adding 1 to make the rank start from 1
 //         });
-        const doc = new jsPDF.default();  // Use '.default' for jsPDF typings
+//         this.matSnackbar.open(`${this.dataSource.data.length}`)
+       if(this.dataSource.data.length>=1) {   const doc = new jsPDF.default();  // Use '.default' for jsPDF typings
         const centerX = doc.internal.pageSize.width / 2;
         const rightX = doc.internal.pageSize.width - 20;
 
@@ -109,7 +113,9 @@ export class StudentAttendanceComponent implements OnInit {
             }// Set border line color
         });
         doc.save(`${this.studentData?.studentName}.pdf`);
-
+    } else{
+           this.matSnackbar.open('NO DATA TO DOWNLOAD')._dismissAfter(3000)
+       }
     }
 
 

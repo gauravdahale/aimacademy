@@ -6,6 +6,7 @@
     </mat-card-header>
 
     <mat-card-content>
+<!--        <prettyjson [obj]="testDetails?.students"></prettyjson>-->
         <span class="green">Positive: {{testDetails?.positive}}</span>
 
       &nbsp;  <span class="red">Negative: {{testDetails?.negative}}</span>
@@ -19,10 +20,10 @@
                 <tr>
                     <th>Name</th>
                     <th>RollNo</th>
-                    <th>Marks obtained</th>
+                    <th>Total</th>
                     <th>Correct</th>
                     <th>Incorrect</th>
-                    <th>Total</th>
+                    <th>Marks Obtained</th>
                 </tr>
 
                 <tr *ngFor="let studentGroup of studentFormArray?.controls; let i = index" [formGroupName]="i">
@@ -30,25 +31,26 @@
                     <td>{{ studentGroup.get('rollNo')?.value}}</td>
                     <td>{{ studentGroup.get('totalMarks')?.value }}</td>
                     <td>   <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
-                        <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+                     <input type="text" [formControlName]="'rightAnswers'" (input)="onInputChanged(studentGroup.get('rightAnswers'))">
 
                         <div class="error-message" *ngIf="studentGroup.get('rightAnswers')?.hasError('notANumber')">
                             Marks should be an integer
                         </div></td>
-                    <td>   <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
-                        <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
+                    <td>
+                        <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                        <input type="text" [formControlName]="'wrongAnswers'" (input)="onInputChanged(studentGroup.get('wrongAnswers'))">
 
                         <div class="error-message" *ngIf="studentGroup.get('wrongAnswers')?.hasError('notANumber')">
                             Marks should be an integer
-                        </div></td>
-                    <td>
-                        <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
+                        </div>
+                    </td>
+                    <td>   <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
                         <input type="text" [formControlName]="'correct'" (input)="onInputChanged(studentGroup.get('correct'))">
 
                         <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">
                             Marks should be an integer
-                        </div>
-                    </td>
+                        </div></td>
+
                 </tr>
             </table>
             </div>

@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AddAssignmentComponent} from "../add-assignment/add-assignment.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-assignment-table',
@@ -16,7 +17,7 @@ import {MatTableDataSource} from "@angular/material/table";
 export class AssignmentTableComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['description', 'fileUrl','date','symbol']; // Add more column names if needed
+  displayedColumns: string[] = ['className','description', 'fileUrl','date','symbol']; // Add more column names if needed
 dataSource:MatTableDataSource<any>
   pdfFiles: any[] = [
     { description: 'PDF File 1',fileUrl: "120" },
@@ -26,6 +27,7 @@ dataSource:MatTableDataSource<any>
 
   constructor(private storage: AngularFireStorage,
               private matDialog:MatDialog,
+              private mSnackbar:MatSnackBar,
 
               private firestore:AngularFirestore)
   {
@@ -47,7 +49,17 @@ pdfFiles$.subscribe(res=>{
 })
   }
 
-  delete(id:any) {
-    
+  deleteFileAndNode(element:any) {
+    // 1. Delete file from Firebase Storage
+    const fileRef = this.storage.storage.refFromURL(element.fileUrl);
+    return fileRef.delete().then(() => {
+      // 2. Delete node from Firestore
+       this.firestore.collection('assignments').doc(element.id).delete().then(res=>{
+         this.mSnackbar.open('Deleted successfully!')
+       });
+    }).catch(error => {
+      console.error('Error deleting file:', error);
+      throw error; // Or handle the error as needed
+    });
   }
 }

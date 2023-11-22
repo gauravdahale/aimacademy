@@ -47,6 +47,7 @@ export class TestListComponent {
     }
 
     ngOnInit(): void {
+
         this.mTestService.fetchTestsByClass(this.classSelected).pipe(takeUntil(this._destroyed$))
             .subscribe(res => {
                 this.data = res

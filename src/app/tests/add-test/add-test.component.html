@@ -3,7 +3,7 @@
         <mat-card-title>Create Test</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <prettyjson [obj]="form.value"></prettyjson>
+<!--        <prettyjson [obj]="form.value"></prettyjson>-->
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <mat-card>
                 <div class="row">
@@ -44,7 +44,9 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="col-md-2">
                     <mat-label>Negative Marking</mat-label>
-                    <input matInput [formControl]=negative>
+                    <input matInput [formControl]=negative >
+
+
                 </mat-form-field>
                 </div>
 
@@ -58,8 +60,8 @@
                     <tr>
                         <th>RollNo</th>
                         <th>Name</th>
-                        <th class="right" >Correct</th>
-                        <th class="wrong" >Incorrect</th>
+                        <th class="right" >Correct Questions</th>
+                        <th class="wrong" >Incorrect Questions</th>
                         <th class="correct">Marks obtained</th>
                         <th >Total</th>
                     </tr>
@@ -67,7 +69,7 @@
                         <td>{{ studentGroup.get('rollNo')?.value}}</td>
                         <td>{{studentGroup.get('name')?.value!}}</td>
 
-                        <td class="correct" style="width: 50px;">
+                        <td class="correct" style="width: 50px;" >
                             <!--                            <label for="correct">Marks&nbsp; &nbsp;</label>-->
                             <input   type="text" id="rightAnswers" [formControlName]="'rightAnswers'"
                                    (input)="RightOnInputChanged(studentGroup.get('rightAnswers'),i)"
@@ -93,7 +95,7 @@
                                 Marks should be an integer
                             </div>
                         </td>
-                        <td style="width: 50px;">
+                        <td style="width: 50px;" [ngClass]="{'red': studentGroup.get('correct')?.hasError('marksGreaterThanTotalCorrect')}">
                             {{studentGroup.get('correct')?.value}}
 <!--                            <input type="text" id="correct" [formControlName]="'correct'"-->
 <!--                                   (input)="onInputChanged(studentGroup.get('correct'))"-->
@@ -104,6 +106,10 @@
 <!--                            </div>-->
 <!--                            <div class="error-message" *ngIf="studentGroup.get('correct')?.hasError('notANumber')">-->
 <!--                                Marks should be an integer-->
+<!--                            </div>-->
+<!--                            <div class="error-message"-->
+<!--                                 *ngIf="studentGroup.get('correct')?.hasError('marksGreaterThanTotalCorrect')">-->
+<!--                                Marks cannot be greater than total marks-->
 <!--                            </div>-->
                         </td>
 

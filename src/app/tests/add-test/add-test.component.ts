@@ -10,9 +10,7 @@ import {
     Validators
 } from "@angular/forms";
 import {TestService} from "../../services/test.service";
-import {TestModel} from "../../interfaces/TestModel";
-import {MatDialogRef} from "@angular/material/dialog";
-import {debounceTime, Observable, startWith, tap} from "rxjs";
+import { Observable, startWith, tap} from "rxjs";
 import {map} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {StudentService} from "../../services/student.service";
@@ -70,7 +68,7 @@ export class AddTestComponent implements OnInit {
             negative: this.negative
         });
         // this.dataSource = this.studentsFormArray.controls.map(studentFormGroup => studentFormGroup.value);
-
+// alert(this.positive.value)
     }
 
     // Custom validator function to ensure input is not greater than totalMarks
@@ -80,13 +78,24 @@ export class AddTestComponent implements OnInit {
         const marksObtained = parseFloat(control.value); // Convert to a number
 
         // if (!isNaN(marksObtained) && !isNaN(totalMarks) && marksObtained > totalMarks ) {
-        if ( marksObtained > totalMarks ) {
+        if ( (marksObtained > totalMarks) || ((marksObtained * +this.positive.value!) > totalMarks) ) {
             return {marksGreaterThanTotal: true};
         }
 
         return null;
     };
+    marksNotGreaterThanTotalValidatorCorrect: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+        const totalMarks = parseFloat(this.totalMarks.value!); // Convert to a number
+        // alert(totalMarks)
+        const marksObtained = parseFloat(control.value); // Convert to a number
 
+        // if (!isNaN(marksObtained) && !isNaN(totalMarks) && marksObtained > totalMarks ) {
+        if ( (marksObtained > totalMarks)  ) {
+            return {marksGreaterThanTotalCorrect: true};
+        }
+
+        return null;
+    };
     ngOnInit() {
         this.batschSelected = localStorage.getItem('aimClass')
         this.students$ = this.mStudentService.fetchStudentsFromBatch(this.batschSelected!)
@@ -169,7 +178,7 @@ export class AddTestComponent implements OnInit {
             name: [{value: student.studentName, disabled: true}, Validators.required],
             totalMarks: [this.totalMarks.value, Validators.required],
             // rank: [''],
-            correct: [0, [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]],
+            correct: [0, [this.numberValidator, this.marksNotGreaterThanTotalValidatorCorrect, Validators.required]],
             rightAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]],
             wrongAnswers: ['', [this.numberValidator, this.marksNotGreaterThanTotalValidator, Validators.required]]
         });

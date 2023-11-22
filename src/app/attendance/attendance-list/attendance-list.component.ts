@@ -31,7 +31,8 @@ export class AttendanceListComponent implements OnInit, OnDestroy, AfterViewInit
     data: any
     destroyed$ = new Subject()
     batch$: Observable<any>
-    batchSelected: any;
+    batchSelected=  localStorage.getItem('aimClass')||''
+
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(private readonly mFirestore: AngularFirestore,
@@ -49,6 +50,13 @@ export class AttendanceListComponent implements OnInit, OnDestroy, AfterViewInit
             this.displayedColumns = !this.isHandset ? ['position', 'className', 'date', 'present', 'absent', 'total', 'action'] : ['position', 'date', 'present', 'absent', 'total', 'action'];
 
         })
+        if (this.batchSelected != null) {
+            this.mFirestore.collection('attendance').doc(this.batchSelected).collection('attendance').valueChanges({idField: 'id'}).pipe(takeUntil(this.destroyed$))
+                .subscribe(res => {
+                    this.data = res
+                    this.dataSource.data = this.data
+                })
+        }
     }
 
     search() {

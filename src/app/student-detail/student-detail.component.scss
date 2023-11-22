@@ -1,0 +1,17 @@
+mat-card {
+  width: 100%;
+  overflow-x: auto;
+}
+
+//.table2 {
+//max-width: 300px;
+//  overflow-x: auto;
+//  background: wheat;
+//}
+.table-container {
+  overflow-x: auto;
+  /* You may need to adjust max-width or width to fit your layout */
+  max-width: 100%;
+  width: 100%;
+    background: wheat;
+}

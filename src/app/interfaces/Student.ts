@@ -9,4 +9,5 @@ export interface Student {
     rollNo: string,
     id: string
     status?: string
+    sr?:number
 }

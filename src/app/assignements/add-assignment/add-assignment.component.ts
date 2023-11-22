@@ -5,6 +5,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {DateAdapter} from "@angular/material/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-add-assignment',
@@ -14,12 +15,17 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 export class AddAssignmentComponent{
   description=new FormControl('',Validators.required);
   selectedFile: File | null = null;
+classSelected= localStorage.getItem('aimClass')
+  _classes$: Observable<any>;
 
   constructor(private storage: AngularFireStorage,
               private snackbar:MatSnackBar,
               private matDialog:MatDialogRef<AddAssignmentComponent>,
 
+              private readonly mFirestore:AngularFirestore,
               private firestore:AngularFirestore) {
+    this._classes$ = this.mFirestore.collection('class', ref => ref.orderBy('className', 'asc')).valueChanges({idField: 'id'})
+
   }
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -48,7 +54,7 @@ export class AddAssignmentComponent{
             if (snapshot?.state === 'success') {
               fileRef.getDownloadURL().subscribe((downloadUrl) => {
                 // Save the download URL to Firestore
-                this.saveUrlToFirestore(downloadUrl);
+                this.saveUrlToFirestore(downloadUrl,this.classSelected||'');
               });
             }
           },
@@ -63,8 +69,9 @@ export class AddAssignmentComponent{
       this.snackbar.open('Select a  pdf file only')._dismissAfter(3000)
     }
   }
-  saveUrlToFirestore(downloadUrl: string) {
+  saveUrlToFirestore(downloadUrl: string,selectedClass:string) {
     let obj ={
+      'className':selectedClass,
       "fileUrl":downloadUrl,
       "date":new Date(),
       "description":this.description.value
@@ -83,5 +90,7 @@ export class AddAssignmentComponent{
           // Handle Firestore update errors
         });
   }
-  }
+
+
+}
 
